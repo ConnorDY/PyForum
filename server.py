@@ -6,7 +6,7 @@ import os.path
 import time
 import cgi
 
-import pagegetfunction
+import pagefunction
 
 # Vars
 PORT = 80
@@ -43,8 +43,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 		iQ = tPath.find('?')
 		if iQ != -1:
 			sArgs = dict(itm.split('=',1) for itm in tPath[iQ+1:].split('&'))
-			#sArgs = dict((itm.split('=')[0],itm.split('=')[1]) for itm in tPath[iQ+1:].split('&'))
-			#sArgs = tPath[iQ+1:]
 			tPath = tPath[:iQ]
 
 		# Index Page
@@ -87,7 +85,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 
 		## Import page's GET method ##
-		func = pagegetfunction.get(path)
+		func = pagefunction.get(path)
 
 		# Run page get function if it exists
 		if func is not None:
@@ -157,7 +155,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 		s.send_response(301)
 
 		## Import page's POST module ##
-		func = pagegetfunction.post(s.path)
+		func = pagefunction.post(s.path)
 		
 		loc = None
 
@@ -169,7 +167,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 		s.send_header("Location", loc)
 		s.end_headers()
 
-		
 
 # Create TCP HTTP Server
 httpd = socketserver.TCPServer(("", PORT), Handler)
