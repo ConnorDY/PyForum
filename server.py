@@ -125,7 +125,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 		## Response Codes ##
 		if redirect:
 			s.send_response(301)
-		else if path != "/404":
+		elif path != "/404":
 			s.send_response(200)
 		else:
 			s.send_response(404)
