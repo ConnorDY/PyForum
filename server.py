@@ -6,6 +6,8 @@ import os.path
 import time
 import cgi
 
+import pagegetfunction
+
 # Vars
 PORT = 80
 HTML = 0
@@ -85,37 +87,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 
 		## Import page's GET method ##
-		func = None
-
-		# Index
-		if path == "/index":
-			import pg_index
-			func = pg_index.get
-
-		# Test Index
-		elif path == "/index_":
-			import pg_index_
-			func = pg_index_.get
-
-		# View Forum
-		elif path == "/viewforum":
-			import pg_viewforum
-			func = pg_viewforum.get
-
-		# View Thread
-		elif path == "/viewthread":
-			import pg_viewthread
-			func = pg_viewthread.get
-
-		# Login
-		elif path == "/login":
-			import pg_login
-			func = pg_login.get
-
-		# Login
-		elif path == "/register":
-			import pg_register
-			func = pg_register.get
+		func = pagegetfunction.get(path)
 
 		# Run page get function if it exists
 		if func is not None:
