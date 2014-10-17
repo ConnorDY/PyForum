@@ -1,0 +1,68 @@
+{top}
+
+<form name="register" method="post" action="./register">
+	<div class="cap-div">
+		<div class="cap-left">
+			<div class="cap-right" style="font-size: 12px;">&nbsp;Registration&nbsp;</div>
+		</div>
+	</div>
+
+	<table class="tablebg" width="100%" cellspacing="0">
+		<tbody>
+			<tr>
+				<td class="row1" width="38%"><b class="genmed">Username: </b><br><span class="gensmall">Username must be between 4 and 20 chars long and use alphanumeric, space or -+_[] characters.</span></td>
+				<td class="row2"><input class="post" type="text" name="username" size="25" value=""></td>
+			</tr>
+
+			<tr>
+				<td class="row1"><b class="genmed">Registration key&nbsp; (Optional): </b><br><span class="gensmall">Obtained by a user of this board via e-mail.</span></td>
+				<td class="row2"><input class="post" type="text" name="key" size="25" value=""></td>
+			</tr>
+
+			<tr>
+				<td class="row1"><b class="genmed">E-mail address: </b></td>
+				<td class="row2"><input class="post" type="text" name="email" size="25" maxlength="100" value=""></td>
+			</tr>
+
+			<tr>
+				<td class="row1"><b class="genmed">Confirm e-mail address: </b></td>
+				<td class="row2"><input class="post" type="text" name="email_confirm" size="25" maxlength="100" value=""></td>
+			</tr>
+
+			<tr>
+				<td class="row1"><b class="genmed">Password: </b><br><span class="gensmall">Must be between 6 and 100 characters.</span></td>
+				<td class="row2"><input class="post" type="password" name="password" size="25" value=""></td>
+			</tr>
+
+			<tr>
+				<td class="row1"><b class="genmed">Confirm password: </b></td>
+				<td class="row2"><input class="post" type="password" name="password_confirm" size="25" value=""></td>
+			</tr>
+
+			<tr>
+				<td class="row1"><b class="genmed">Language: </b></td>
+				<td class="row2"><select name="lang" onchange="change_language(this.value); return false;"><option value="en" selected="selected">British English</option></select></td>
+			</tr>
+
+			<tr>
+				<td class="row1"><b class="genmed">Timezone: </b></td>
+				<td class="row2"><select name="tz"><option title="[UTC - 12] Baker Island Time" value="-12">[UTC - 12] Baker Island Time</option><option title="[UTC - 11] Niue Time, Samoa Standard Time" value="-11">[UTC - 11] Niue Time, Samoa Standard Time</option><option title="[UTC - 10] Hawaii-Aleutian Standard Time, Cook Island Time" value="-10">[UTC - 10] Hawaii-Aleutian Standard Time, Cook Island Time</option><option title="[UTC - 9:30] Marquesas Islands Time" value="-9.5">[UTC - 9:30] Marquesas Islands Time</option><option title="[UTC - 9] Alaska Standard Time, Gambier Island Time" value="-9">[UTC - 9] Alaska Standard Time, Gambier Island Time</option><option title="[UTC - 8] Pacific Standard Time" value="-8">[UTC - 8] Pacific Standard Time</option><option title="[UTC - 7] Mountain Standard Time" value="-7">[UTC - 7] Mountain Standard Time</option><option title="[UTC - 6] Central Standard Time" value="-6">[UTC - 6] Central Standard Time</option><option title="[UTC - 5] Eastern Standard Time" value="-5">[UTC - 5] Eastern Standard Time</option><option title="[UTC - 4:30] Venezuelan Standard Time" value="-4.5">[UTC - 4:30] Venezuelan Standard Time</option><option title="[UTC - 4] Atlantic Standard Time" value="-4">[UTC - 4] Atlantic Standard Time</option><option title="[UTC - 3:30] Newfoundland Standard Time" value="-3.5">[UTC - 3:30] Newfoundland Standard Time</option><option title="[UTC - 3] Amazon Standard Time, Central Greenland Time" value="-3">[UTC - 3] Amazon Standard Time, Central Greenland Time</option><option title="[UTC - 2] Fernando de Noronha Time, South Georgia &amp; the South Sandwich Islands Time" value="-2">[UTC - 2] Fernando de Noronha Time, South Georgia &amp; the South Sandwich Islands Time</option><option title="[UTC - 1] Azores Standard Time, Cape Verde Time, Eastern Greenland Time" value="-1">[UTC - 1] Azores Standard Time, Cape Verde Time, Eastern Greenland Time</option><option title="[UTC] Western European Time, Greenwich Mean Time" value="0" selected="selected">[UTC] Western European Time, Greenwich Mean Time</option><option title="[UTC + 1] Central European Time, West African Time" value="1">[UTC + 1] Central European Time, West African Time</option><option title="[UTC + 2] Eastern European Time, Central African Time" value="2">[UTC + 2] Eastern European Time, Central African Time</option><option title="[UTC + 3] Moscow Standard Time, Eastern African Time" value="3">[UTC + 3] Moscow Standard Time, Eastern African Time</option><option title="[UTC + 3:30] Iran Standard Time" value="3.5">[UTC + 3:30] Iran Standard Time</option><option title="[UTC + 4] Gulf Standard Time, Samara Standard Time" value="4">[UTC + 4] Gulf Standard Time, Samara Standard Time</option><option title="[UTC + 4:30] Afghanistan Time" value="4.5">[UTC + 4:30] Afghanistan Time</option><option title="[UTC + 5] Pakistan Standard Time, Yekaterinburg Standard Time" value="5">[UTC + 5] Pakistan Standard Time, Yekaterinburg Standard Time</option><option title="[UTC + 5:30] Indian Standard Time, Sri Lanka Time" value="5.5">[UTC + 5:30] Indian Standard Time, Sri Lanka Time</option><option title="[UTC + 5:45] Nepal Time" value="5.75">[UTC + 5:45] Nepal Time</option><option title="[UTC + 6] Bangladesh Time, Bhutan Time, Novosibirsk Standard Time" value="6">[UTC + 6] Bangladesh Time, Bhutan Time, Novosibirsk Standard Time</option><option title="[UTC + 6:30] Cocos Islands Time, Myanmar Time" value="6.5">[UTC + 6:30] Cocos Islands Time, Myanmar Time</option><option title="[UTC + 7] Indochina Time, Krasnoyarsk Standard Time" value="7">[UTC + 7] Indochina Time, Krasnoyarsk Standard Time</option><option title="[UTC + 8] Chinese Standard Time, Australian Western Standard Time, Irkutsk Standard Time" value="8">[UTC + 8] Chinese Standard Time, Australian Western Standard Time, Irkutsk Standard Time</option><option title="[UTC + 8:45] Southeastern Western Australia Standard Time" value="8.75">[UTC + 8:45] Southeastern Western Australia Standard Time</option><option title="[UTC + 9] Japan Standard Time, Korea Standard Time, Chita Standard Time" value="9">[UTC + 9] Japan Standard Time, Korea Standard Time, Chita Standard Time</option><option title="[UTC + 9:30] Australian Central Standard Time" value="9.5">[UTC + 9:30] Australian Central Standard Time</option><option title="[UTC + 10] Australian Eastern Standard Time, Vladivostok Standard Time" value="10">[UTC + 10] Australian Eastern Standard Time, Vladivostok Standard Time</option><option title="[UTC + 10:30] Lord Howe Standard Time" value="10.5">[UTC + 10:30] Lord Howe Standard Time</option><option title="[UTC + 11] Solomon Island Time, Magadan Standard Time" value="11">[UTC + 11] Solomon Island Time, Magadan Standard Time</option><option title="[UTC + 11:30] Norfolk Island Time" value="11.5">[UTC + 11:30] Norfolk Island Time</option><option title="[UTC + 12] New Zealand Time, Fiji Time, Kamchatka Standard Time" value="12">[UTC + 12] New Zealand Time, Fiji Time, Kamchatka Standard Time</option><option title="[UTC + 12:45] Chatham Islands Time" value="12.75">[UTC + 12:45] Chatham Islands Time</option><option title="[UTC + 13] Tonga Time, Phoenix Islands Time" value="13">[UTC + 13] Tonga Time, Phoenix Islands Time</option><option title="[UTC + 14] Line Island Time" value="14">[UTC + 14] Line Island Time</option></select></td>
+			</tr>
+
+			<tr>
+				<td class="row2" colspan="2"><span class="gensmall">The items marked with * are required profile fields and need to be filled out.</span></td>
+			</tr>
+
+			<tr>
+				<td class="cat" colspan="2" align="center">
+					<input type="hidden" name="agreed" value="true">
+					<input type="hidden" name="change_lang" value="0">
+					<input type="hidden" name="confirm_id" value="57b810d101371a3ad7b138fac8decb8a">
+					<input class="btnmain" type="submit" name="submit" id="submit" value="Submit">&nbsp;&nbsp;<input class="btnlite" type="reset" value="Reset" name="reset">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+
+{bottom}

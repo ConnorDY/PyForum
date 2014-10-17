@@ -1,0 +1,63 @@
+{top}
+
+<form action="./login" method="post">
+	<div class="cap-div">
+		<div class="cap-left">
+			<div class="cap-right" style="font-size: 12px;">&nbsp;Login&nbsp;</div>
+		</div>
+	</div>
+	<table class="tablebg" width="100%" cellspacing="0">
+		<tbody>
+			<tr>
+				<td class="row1" width="50%">
+					<p class="genmed">In order to login you must be registered. Registering takes only a few moments but gives you increased capabilities. The board administrator may also grant additional permissions to registered users. Before you register please ensure you are familiar with our terms of use and related policies. Please ensure you read any forum rules as you navigate around the board.</p>
+
+					<p class="genmed" align="center">
+						<a href="./terms">Terms of use</a> | <a href="./privacy">Privacy policy</a>
+					</p>
+				</td>
+	
+				<td class="row2">
+					<table align="center" cellspacing="1" cellpadding="4" style="width: 100%;">
+						<tbody>
+							<tr>
+								<td valign="top"><b class="gensmall">Username:</b></td>
+								<td>
+									<input class="post" type="text" name="username" size="25" value="" tabindex="1">
+									<br><a class="gensmall" href="./register">Register</a>
+								</td>
+							</tr>
+							<tr>
+								<td valign="top"><b class="gensmall">Password:</b></td>
+								<td>
+									<input class="post" type="password" name="password" size="25" tabindex="2">
+									<br><a class="gensmall" href="./forgotpassword">I forgot my password</a>
+								</td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td><input type="checkbox" class="radio" name="autologin" tabindex="3"> <span class="gensmall">Log me on automatically each visit</span></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td><input type="checkbox" class="radio" name="viewonline" tabindex="4"> <span class="gensmall">Hide my online status this session</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="cat" colspan="2" align="center">
+					<input type="hidden" name="sid" value="9f55181ff611ead943ecb439ef374ed8">
+					<input type="hidden" name="redirect" value="index">
+					<input type="submit" name="login" class="btnmain" value="Login" tabindex="5">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<input type="hidden" name="redirect" value="./login">
+</form>
+
+{bottom}

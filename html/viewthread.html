@@ -1,0 +1,55 @@
+{top}
+
+<div class="cap-div">
+	<div class="cap-left">
+		<div class="cap-right">
+			<span style="font-size: 12px;">&nbsp;{threadName}&nbsp;</span>
+		</div>
+	</div>
+</div>
+
+<table class="tablebg" width="100%" cellspacing="0">
+	<tbody>
+		<tr>
+            <th>Author</th>
+            <th width="100%">Message</th>
+        </tr>
+
+		{posts}
+
+		<tr>
+			<td class="cat" colspan="2" align="center">&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+
+<br />
+
+<div id="ca-qr">
+	<form method="post" action="./reply">
+		<div class="cap-div">
+			<div class="cap-left">
+				<div class="cap-right" style="font-size: 12px;">&nbsp;Quick Reply&nbsp;</div>
+			</div>
+		</div>
+		<table class="tablebg" width="100%" cellspacing="0">
+			<tbody>
+				<tr>
+					<td class="row1" width="22%"><b class="genmed">Message:</b></td>
+					<td class="row2" valign="top" align="left" width="78%">
+						<textarea name="message" rows="7" cols="76" tabindex="3" style="width: 98%;"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td class="cat" colspan="2" align="center">
+						<input class="btnmain" type="submit" accesskey="s" tabindex="6" name="post" value="Submit">&nbsp;
+						<input type="hidden" name="thread_id" value="{tid}">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<br clear="all">
+</div>
+
+{bottom}
