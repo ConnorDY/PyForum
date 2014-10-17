@@ -157,22 +157,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 		s.send_response(301)
 
 		## Import page's POST module ##
-		func = None
-
-		# Test Index
-		if s.path == "/index_":
-			import pg_index_
-			func = pg_index_.post
-
-		# Register
-		if s.path == "/register":
-			import pg_register
-			func = pg_register.post
-
-		# Login
-		if s.path == "/login":
-			import pg_login
-			func = pg_login.post
+		func = pagegetfunction.post(s.path)
 		
 		loc = None
 
