@@ -10,6 +10,5 @@ def genTop(title):
 def genBottom(ts):
 	temps = loadTemplates(["bottom"])
 	r_time = datetime.datetime.fromtimestamp(ts).strftime("%H:%M:%S %m/%d/%Y")
-	r = temps["bottom"].format(time=r_time,elapsed=r_elapsed)
 	r_elapsed = time.time()-ts
-	return r
+	return temps["bottom"].format(time=r_time,elapsed=r_elapsed)
