@@ -6,11 +6,6 @@ def get(path):
 		import pg_index
 		func = pg_index.get
 
-	# Test Index
-	elif path == "/index_":
-		import pg_index_
-		func = pg_index_.get
-
 	# View Forum
 	elif path == "/viewforum":
 		import pg_viewforum
@@ -36,18 +31,13 @@ def get(path):
 def post(path):
 	func = None
 
-	# Test Index
-	if path == "/index_":
-		import pg_index_
-		func = pg_index_.post
-
 	# Register
 	if path == "/register":
 		import pg_register
 		func = pg_register.post
 
 	# Login
-	if path == "/login":
+	elif path == "/login":
 		import pg_login
 		func = pg_login.post
 
