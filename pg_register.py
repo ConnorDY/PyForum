@@ -2,7 +2,7 @@
 
 from pymongo import MongoClient
 
-import http.server
+from loadtemplates import loadTemplates
 
 import time
 import datetime
@@ -19,25 +19,16 @@ def get(ts, r, args, s):
 	colForums = db.forums
 
 	# Load Top Template
-	with open ("html/subsections/top.html", "r") as file:
-		tempTop = file.read()
-
-	# Load Bottom Template
-	with open ("html/subsections/bottom.html", "r") as file:
-		tempBottom = file.read()
-
-	# Load Header Template
-	with open ("html/subsections/header.html", "r") as file:
-		tempHeader = file.read()
+	temps = loadTemplates(["top", "bottom", "header"])
 
 	# Generate Top
-	r_top = tempTop.format(header=tempHeader,pageTitle="Register")
+	r_top = temps["top"].format(header=temps["header"],pageTitle="Register")
 
 	# Time it took to generate this page
 	r_elapsed = time.time()-ts
 
 	# Generate Bottom
-	r_bottom = tempBottom.format(time=r_time,elapsed=r_elapsed)
+	r_bottom = temps["bottom"].format(time=r_time,elapsed=r_elapsed)
 
 	# Return modified template
 	return r.format(top=r_top,bottom=r_bottom)
