@@ -2,34 +2,17 @@
 
 from pymongo import MongoClient
 
-from loadtemplates import loadTemplates
+import genparts
 import checklogin
 
-import time
-import datetime
 import hashlib
 
 def get(ts, r, args, s):
-	# Current date and time
-	r_time = datetime.datetime.fromtimestamp(ts).strftime("%H:%M:%S %m/%d/%Y")
-
-	# Connect to Mongo DB
-	client = MongoClient("mongodb://localhost:27017/")
-	db = client.db
-	colCategories = db.categories
-	colForums = db.forums
-
-	# Load Top Template
-	temps = loadTemplates(["top", "bottom", "header"])
-
 	# Generate Top
-	r_top = temps["top"].format(header=temps["header"],pageTitle="Register")
-
-	# Time it took to generate this page
-	r_elapsed = time.time()-ts
+	r_top = genparts.genTop("Login")
 
 	# Generate Bottom
-	r_bottom = temps["bottom"].format(time=r_time,elapsed=r_elapsed)
+	r_bottom = genparts.genBottom(ts)
 
 	# Return modified template
 	return r.format(top=r_top,bottom=r_bottom)
