@@ -22,7 +22,7 @@ def get(ts, r, args, s):
 	r_forumName = forum["name"]
 
 	# Generate Top
-	r_top = genparts.genTop("View Forum | " + r_forumName)
+	r_top = genparts.genTop("View Forum | " + r_forumName, s.headers)
 
 	# Generate Page
 	r_threads = ""

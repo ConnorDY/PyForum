@@ -8,7 +8,7 @@ import hashlib
 
 def get(ts, r, args, s):
 	# Generate Top
-	r_top = genparts.genTop("Login")
+	r_top = genparts.genTop("Register", s.headers)
 
 	# Generate Bottom
 	r_bottom = genparts.genBottom(ts)

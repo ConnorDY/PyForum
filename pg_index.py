@@ -17,7 +17,7 @@ def get(ts, r, args, s):
 	temps = loadTemplates(["forum", "category"])
 
 	# Generate Top
-	r_top = genparts.genTop("Forums")
+	r_top = genparts.genTop("Forums", s.headers)
 
 	## Create Page ##
 	r_board = ""

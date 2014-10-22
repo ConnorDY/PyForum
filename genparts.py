@@ -1,12 +1,26 @@
 from loadtemplates import loadTemplates
 
+import checklogin
+
 import time
 import datetime
 
-def genTop(title):
+def genTop(title, headers):
 	temps = loadTemplates(["top", "header"])
+
+	r_navbar = ""
+
+	if checklogin.checkLogin(headers):
+		r_navbar += "<a href=\"./logout\">Logout</a> - "
+	else:
+		r_navbar += "<a href=\"./login\">Login</a> - " 
+		r_navbar += "<a href=\"./register\">Register</a> - "
 	
-	return temps["top"].format(header=temps["header"],pageTitle=title)
+	r_navbar += "<a href=\"./faq\">FAQ</a>"
+
+	r_header = temps["header"].format(navbar=r_navbar)
+	
+	return temps["top"].format(header=r_header,pageTitle=title)
 
 def genBottom(ts):
 	temps = loadTemplates(["bottom"])

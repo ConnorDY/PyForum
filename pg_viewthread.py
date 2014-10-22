@@ -26,7 +26,7 @@ def get(ts, r, args, s):
 	r_tid = thread["_id"]
 
 	# Generate Top
-	r_top = genparts.genTop("View Thread | " + r_threadName)
+	r_top = genparts.genTop("View Thread | " + r_threadName, s.headers)
 
 	# Generate Page
 	r_posts = ""
