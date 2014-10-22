@@ -21,24 +21,29 @@ def get(path):
 		import pg_login
 		func = pg_login.get
 
-	# Login
+	# Register
 	elif path == "/register":
 		import pg_register
 		func = pg_register.get
+
+	# Logout
+	elif path == "/logout":
+		import pg_logout
+		func = pg_logout.get
 
 	return func
 
 def post(path):
 	func = None
 
-	# Register
-	if path == "/register":
-		import pg_register
-		func = pg_register.post
-
 	# Login
-	elif path == "/login":
+	if path == "/login":
 		import pg_login
 		func = pg_login.post
+
+	# Register
+	elif path == "/register":
+		import pg_register
+		func = pg_register.post
 
 	return func

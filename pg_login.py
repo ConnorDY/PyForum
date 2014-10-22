@@ -26,7 +26,7 @@ def post(s, form):
 	fields = ["username", "password"]
 	if not all(str in form for str in fields):
 		print("Form not filled out completely.")
-		return
+		return "/login"
 
 	# Connect to Mongo DB
 	client = MongoClient("mongodb://localhost:27017/")
@@ -45,11 +45,10 @@ def post(s, form):
 			print("Login correct.")
 			s.send_header("Set-Cookie", "username={}".format(form["username"].value))
 			s.send_header("Set-Cookie", "password={}".format(password))
+			return "/"
 		else:
 			print("Invalid password.")
+			return "/login"
 	else:
 		print("User not found.")
-
-	print("User input: {}".format(form["username"].value))
-
-	return "/index"
+		return "/login"

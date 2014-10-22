@@ -27,7 +27,7 @@ def post(s, form):
 	fields = ["username", "email", "password"]
 	if not all(str in form for str in fields):
 		print("Form not filled out completely.")
-		return
+		return "/register"
 
 	# Connect to Mongo DB
 	client = MongoClient("mongodb://localhost:27017/")

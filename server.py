@@ -87,7 +87,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 		## Import page's GET method ##
 		if reqType == HTML:
-			
 			func = pagefunction.get(path)
 
 			# Run page get function if it exists
@@ -111,39 +110,41 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 			s.send_response(404)
 
 
-		## Headers ##
+		## Content-Types ##
+		if not redirect:
+			# HTML
+			if reqType == HTML:
+				s.send_header("Content-type", "text/html")
+				r = r.encode("utf-8")
 
-		# HTML
-		if reqType == HTML:
-			s.send_header("Content-type", "text/html")
-			r = r.encode("utf-8")
+			# Javascript
+			elif reqType == JS:
+				s.send_header("Content-type", "text/javascript")
+				r = r.encode("utf-8")
 
-		# Javascript
-		elif reqType == JS:
-			s.send_header("Content-type", "text/javascript")
-			r = r.encode("utf-8")
+			# CSS Stylesheets
+			elif reqType == CSS:
+				s.send_header("Content-type", "text/css")
+				r = r.encode("utf-8")
 
-		# CSS Stylesheets
-		elif reqType == CSS:
-			s.send_header("Content-type", "text/css")
-			r = r.encode("utf-8")
+			# Images
+			elif reqType == IMG:
+				cType = ""
 
-		# Images
-		elif reqType == IMG:
-			cType = ""
+				# PNG
+				if path.endswith(".png"):
+					cType = "png"
+				# JPEG
+				elif path.endswith(".jpeg") or path.endswith(".jpg"):
+					cType = "jpeg"
+				# GIF
+				elif path.endswith(".gif"):
+					cType = "gif"
 
-			# PNG
-			if path.endswith(".png"):
-				cType = "png"
-			# JPEG
-			elif path.endswith(".jpeg") or path.endswith(".jpg"):
-				cType = "jpeg"
-			# GIF
-			elif path.endswith(".gif"):
-				cType = "gif"
+				s.send_header("Content-type", "image/"+cType)
 
-			s.send_header("Content-type", "image/"+cType)
 
+		## End Headers ##
 		s.end_headers()
 
 
@@ -163,12 +164,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 					})
 
 		# Response
-		s.send_response(307)
+		s.send_response(301)
 
 		## Import page's POST module ##
 		func = pagefunction.post(s.path)
-		
-		loc = None
+		loc = ""
 
 		# Pass POST data to page
 		if func is not None:
