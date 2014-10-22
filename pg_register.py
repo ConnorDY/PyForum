@@ -1,12 +1,17 @@
 # path="/register"
 
 from pymongo import MongoClient
+from checklogin import checkLogin
 
 import genparts
 
 import hashlib
 
 def get(ts, r, args, s):
+	# Redirect if already logged in
+	if checkLogin(s.headers):
+		return "Redirect: /"
+
 	# Generate Top
 	r_top = genparts.genTop("Register", s.headers)
 

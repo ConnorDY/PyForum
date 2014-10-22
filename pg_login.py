@@ -1,13 +1,17 @@
 # path="/login"
 
 from pymongo import MongoClient
+from checklogin import checkLogin
 
 import genparts
-import checklogin
 
 import hashlib
 
 def get(ts, r, args, s):
+	# Redirect if already logged in
+	if checkLogin(s.headers):
+		return "Redirect: /"
+
 	# Generate Top
 	r_top = genparts.genTop("Login", s.headers)
 
@@ -18,6 +22,7 @@ def get(ts, r, args, s):
 	return r.format(top=r_top,bottom=r_bottom)
 
 def post(s, form):
+	# Make sure values entered are alright
 	fields = ["username", "password"]
 	if not all(str in form for str in fields):
 		print("Form not filled out completely.")

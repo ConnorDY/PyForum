@@ -27,6 +27,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 	def do_GET(s):
 		# Default to not redirecting
 		redirect = False
+		redirectPg = ""
 
 		# Current timestamp
 		ts = time.time()
@@ -85,16 +86,25 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 
 		## Import page's GET method ##
-		func = pagefunction.get(path)
+		if reqType == HTML:
+			
+			func = pagefunction.get(path)
 
-		# Run page get function if it exists
-		if func is not None:
-			r = func(ts, r, sArgs, s)
+			# Run page get function if it exists
+			if func is not None:
+				r = func(ts, r, sArgs, s)
 
+				# Check for redirect
+				if r.find("Redirect: ") == 0:
+					redirect = True
+					redirectPg = r[10:]
 
+			
 		## Response Codes ##
 		if redirect:
-			s.send_response(301)
+			print("Redirecting to: {}".format(redirectPg))
+			s.send_response(307)
+			s.send_header("Location", redirectPg)
 		elif path != "/404":
 			s.send_response(200)
 		else:
@@ -138,8 +148,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 
 		## Page Content ##
-		s.wfile.write(r)
-		s.wfile.flush()
+		if not redirect:
+			s.wfile.write(r)
+			s.wfile.flush()
 
 	# Handle Post Requests
 	def do_POST(s):
@@ -152,7 +163,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 					})
 
 		# Response
-		s.send_response(301)
+		s.send_response(307)
 
 		## Import page's POST module ##
 		func = pagefunction.post(s.path)

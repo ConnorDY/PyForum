@@ -1,6 +1,5 @@
 from loadtemplates import loadTemplates
-
-import checklogin
+from checklogin import checkLogin
 
 import time
 import datetime
@@ -10,7 +9,7 @@ def genTop(title, headers):
 
 	r_navbar = ""
 
-	if checklogin.checkLogin(headers):
+	if checkLogin(headers):
 		r_navbar += "<a href=\"./logout\">Logout</a> - "
 	else:
 		r_navbar += "<a href=\"./login\">Login</a> - " 
