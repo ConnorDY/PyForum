@@ -155,6 +155,17 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 	# Handle Post Requests
 	def do_POST(s):
+		## Path ##
+		tPath = s.path
+
+		# Fix path if it contains a question mark
+		sArgs = None
+
+		iQ = tPath.find('?')
+		if iQ != -1:
+			sArgs = dict(itm.split('=',1) for itm in tPath[iQ+1:].split('&'))
+			tPath = tPath[:iQ]
+
 		# Get POST data
 		form = cgi.FieldStorage(
 			fp=s.rfile,
@@ -167,12 +178,12 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 		s.send_response(301)
 
 		## Import page's POST module ##
-		func = pagefunction.post(s.path)
+		func = pagefunction.post(tPath)
 		loc = ""
 
 		# Pass POST data to page
 		if func is not None:
-			loc = func(s, form)
+			loc = func(s, form, sArgs)
 
 		# Send headers
 		s.send_header("Location", loc)
