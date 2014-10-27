@@ -46,9 +46,4 @@ def post(path):
 		import pg_register
 		func = pg_register.post
 
-	# View Thread (reply)
-	elif path == "/viewthread":
-		import pg_viewthread
-		func = pg_viewthread.post
-
 	return func
