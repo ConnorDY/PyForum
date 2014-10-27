@@ -1,7 +1,7 @@
 # path="/login"
 
 from pymongo import MongoClient
-from checklogin import checkLogin
+from functions import checkLogin
 
 import genparts
 
@@ -21,7 +21,7 @@ def get(ts, r, args, s):
 	# Return modified template
 	return r.format(top=r_top,bottom=r_bottom)
 
-def post(s, form):
+def post(s, form, args):
 	# Make sure values entered are alright
 	fields = ["username", "password"]
 	if not all(str in form for str in fields):

@@ -1,5 +1,5 @@
 from loadtemplates import loadTemplates
-from checklogin import checkLogin
+from functions import checkLogin
 
 import time
 import datetime

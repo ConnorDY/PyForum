@@ -1,7 +1,7 @@
 # path="/register"
 
 from pymongo import MongoClient
-from checklogin import checkLogin
+from functions import checkLogin
 
 import genparts
 
@@ -21,7 +21,7 @@ def get(ts, r, args, s):
 	# Return modified template
 	return r.format(top=r_top,bottom=r_bottom)
 
-def post(s, form):
+def post(s, form, args):
 	# Make sure values entered are alright
 	#form = {key: value.strip() for key, value in form.items() if value.strip()}
 	fields = ["username", "email", "password"]

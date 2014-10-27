@@ -2,6 +2,9 @@ from pymongo import MongoClient
 from http import cookies
 
 def checkLogin(headers):
+	if headers.get("Cookie") is None:
+		return False
+        
 	# Retrieve Cookies
 	C = cookies.SimpleCookie()
 	C.load(headers.get("Cookie"))
@@ -24,3 +27,14 @@ def checkLogin(headers):
 	else:
 		#print("User not found.")
 		return False
+
+def getUsername(headers):
+	if headers.get("Cookie") is None:
+		return None
+
+	# Retrieve Cookies
+	C = cookies.SimpleCookie()
+	C.load(headers.get("Cookie"))
+	
+	# Return username
+	return C["username"].value
