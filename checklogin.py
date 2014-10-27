@@ -2,6 +2,9 @@ from pymongo import MongoClient
 from http import cookies
 
 def checkLogin(headers):
+	if headers.get("Cookie") is None:
+		return False
+        
 	# Retrieve Cookies
 	C = cookies.SimpleCookie()
 	C.load(headers.get("Cookie"))
