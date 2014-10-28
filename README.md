@@ -1,7 +1,7 @@
 About PyForum
 =======
 
-The first thing I've ever made in Python. Created for my personal use.
+This is my first project in Python created for my personal use. PyForum is a simple python-based forum using MongoDB for the database.
 <br />
 No support will be offered for this software.
 
