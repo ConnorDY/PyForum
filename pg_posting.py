@@ -52,12 +52,18 @@ def post(s, form, args):
 	# Get username
 	username = getUsername(s.headers)
 
+	# Get and increase bump number for forum
+	colForums.update({"_id": ObjectId(args["f"])}, {"$inc": {"bump": 1}}, upsert=False, multi=False)
+	forum = colForums.find_one({"_id": ObjectId(args["f"])})
+	bump = forum["bump"]
+
 	# Insert thread into database
 	thread = {"forum": ObjectId(args["f"]),
 			  "title": form["subject"].value,
 			  "author": username,
 			  "numReplies": 0,
-			  "numViews": 0}
+			  "numViews": 0,
+			  "bumpNum": bump}
 
 	thread_id = colThreads.insert(thread)
 

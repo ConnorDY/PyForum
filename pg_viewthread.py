@@ -91,4 +91,9 @@ def post(s, form, args):
 	colThreads.update({"_id": ObjectId(args["t"])}, {"$inc": {"numReplies": 1}}, upsert=False, multi=False)
 	colForums.update({"_id": thread["forum"]}, {"$inc": {"numPosts": 1}}, upsert=False, multi=False)
 
+	# Get and increase bump number for forum, update bump number for thread
+	colForums.update({"_id": thread["forum"]}, {"$inc": {"bump": 1}}, upsert=False, multi=False)
+	forum = colForums.find_one({"_id": thread["forum"]})
+	colThreads.update({"_id": ObjectId(args["t"])}, {"$set": {"bumpNum": forum["bump"]}}, upsert=False, multi=False)
+
 	return page

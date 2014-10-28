@@ -32,7 +32,7 @@ def get(ts, r, args, s):
 	# Generate Page
 	r_threads = ""
 
-	for thread in colThreads.find({"forum": ObjectId(args["f"])}).sort("order", 1):
+	for thread in colThreads.find({"forum": ObjectId(args["f"])}).sort("bumpNum", -1):
 		r_threads += temps["thread"].format(tid=thread["_id"],title=thread["title"],author=thread["author"],numReplies=thread["numReplies"],numViews=thread["numViews"],lastPost="")
 
 
