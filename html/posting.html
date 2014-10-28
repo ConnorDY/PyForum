@@ -1,0 +1,56 @@
+{top}
+
+{navTree}
+
+<br />
+
+<div id="pageheader">
+	<h2><a class="titles" href="./viewforum?f={fid}">{forumName}</a></h2>
+</div>
+
+<br />
+
+<form action="./posting?f={fid}" method="post" name="postform" enctype="multipart/form-data">
+	<div class="cap-div">
+		<div class="cap-left">
+			<div class="cap-right">
+				<span style="font-size: 12px;">&nbsp;Create a New Thread&nbsp;</span>
+			</div>
+		</div>
+	</div>
+
+	<table class="tablebg" width="100%" cellspacing="0">
+		<tbody>
+			<tr>
+				<td class="row1" width="22%"><b class="genmed">Subject:</b></td>
+				<td class="row2" width="78%"><input class="post" style="width:450px" type="text" name="subject" size="45" maxlength="60" tabindex="2" value=""></td>
+			</tr>
+			<tr>
+				<td class="row1" valign="top">
+					<b class="genmed">Message body:</b><br><span class="gensmall">Enter your message here, it may contain no more than <strong>200000</strong> characters.&nbsp;</span><br><br>
+				</td>
+				<td class="row2" valign="top">
+					<table width="100%" cellspacing="0" cellpadding="0" border="0">
+						<tbody>
+							<tr>
+								<td valign="top" style="width: 100%;">
+									<textarea name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="initInsertions();" class="posting-textarea" style="width: 100%;"></textarea>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td class="cat" colspan="2" align="center">
+					<input class="btnlite" type="submit" tabindex="5" name="preview" value="Preview">
+					&nbsp; <input class="btnmain" type="submit" accesskey="s" tabindex="6" name="post" value="Submit">
+					&nbsp; <input class="btnlite" type="submit" accesskey="k" tabindex="7" name="save" value="Save">
+					&nbsp; <input class="btnlite" type="submit" accesskey="c" tabindex="9" name="cancel" value="Cancel">
+				</td>
+		</tr>
+		</tbody>
+	</table>
+</form>
+
+{bottom}

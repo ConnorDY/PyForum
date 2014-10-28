@@ -59,7 +59,7 @@ def post(s, form, args):
 
 	# Redirect if not logged in
 	if not checkLogin(s.headers):
-		return page
+		return "/login"
 
 	# Import function to get the username from the cookie
 	from functions import getUsername
@@ -86,7 +86,7 @@ def post(s, form, args):
 	
 	colPosts.insert(reply)
 
-	# Update replies and posts
+	# Update replies and posts counts
 	thread = colThreads.find_one({"_id": ObjectId(args["t"])})
 	colThreads.update({"_id": ObjectId(args["t"])}, {"$inc": {"numReplies": 1}}, upsert=False, multi=False)
 	colForums.update({"_id": thread["forum"]}, {"$inc": {"numPosts": 1}}, upsert=False, multi=False)

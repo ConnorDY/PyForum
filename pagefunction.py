@@ -31,6 +31,11 @@ def get(path):
 		import pg_logout
 		func = pg_logout.get
 
+	# Posting
+	elif path == "/posting":
+		import pg_posting
+		func = pg_posting.get
+
 	return func
 
 def post(path):
@@ -50,5 +55,10 @@ def post(path):
 	elif path == "/viewthread":
 		import pg_viewthread
 		func = pg_viewthread.post
+
+	# Posting
+	elif path == "/posting":
+		import pg_posting
+		func = pg_posting.post
 
 	return func

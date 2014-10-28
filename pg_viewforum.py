@@ -10,11 +10,10 @@ def get(ts, r, args, s):
 	# Connect to Mongo DB
 	client = MongoClient("mongodb://localhost:27017/")
 	db = client.db
-	#colCategories = db.categories
 	colForums = db.forums
 	colThreads = db.threads
 
-	# Load Top Template
+	# Load Thread Template
 	temps = loadTemplates(["thread"])
 
 	# Get Forum Name
