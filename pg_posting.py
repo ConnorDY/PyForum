@@ -32,6 +32,8 @@ def get(ts, r, args, s):
 
 def post(s, form, args):
 	from functions import checkLogin
+	import time
+	import datetime
 
 	# Redirect if not logged in
 	if not checkLogin(s.headers):
@@ -69,12 +71,17 @@ def post(s, form, args):
 	# Insert first post into database
 	post = {"thread": thread_id,
 			"author": username,
-			"content": form["message"].value}
+			"content": form["message"].value,
+			"time": time.time()}
 
-	colPosts.insert(post)
+	post_id = colPosts.insert(post)
 
 	# Update threads and posts counts
 	colForums.update({"_id": ObjectId(args["f"])}, {"$inc": {"numPosts": 1}}, upsert=False, multi=False)
 	colForums.update({"_id": ObjectId(args["f"])}, {"$inc": {"numThreads": 1}}, upsert=False, multi=False)
+
+	# Update last posts in forum and thread
+	colForums.update({"_id": ObjectId(args["f"])}, {"$set": {"lastPost": post_id}}, upsert=False, multi=False)
+	colThreads.update({"_id": thread_id}, {"$set": {"lastPost": post_id}}, upsert=False, multi=False)
 
 	return "/viewthread?t={}".format(thread_id)

@@ -3,6 +3,9 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
+import time
+import datetime
+
 from loadtemplates import loadTemplates
 import genparts
 
@@ -39,7 +42,8 @@ def get(ts, r, args, s):
 	r_posts = ""
 
 	for post in colPosts.find({"thread": ObjectId(args["t"])}).sort("_id", 1):
-		r_posts += temps["post"].format(author=post["author"],content=post["content"],postTime="")
+		r_postTime = datetime.datetime.fromtimestamp(post["time"]).strftime("%a %b %d, %Y %I:%M %p")
+		r_posts += temps["post"].format(author=post["author"],content=post["content"],postTime=r_postTime)
 
 	# Update thread views
 	colThreads.update({"_id": ObjectId(args["t"])}, {"$inc": {"numViews": 1}}, upsert=False, multi=False)
@@ -83,7 +87,7 @@ def post(s, form, args):
 			"author": getUsername(s.headers),
 			"content": form["message"].value}
 	
-	colPosts.insert(reply)
+	post_id = colPosts.insert(reply)
 
 	# Update replies and posts counts
 	thread = colThreads.find_one({"_id": ObjectId(args["t"])})
@@ -94,5 +98,9 @@ def post(s, form, args):
 	colForums.update({"_id": thread["forum"]}, {"$inc": {"bump": 1}}, upsert=False, multi=False)
 	forum = colForums.find_one({"_id": thread["forum"]})
 	colThreads.update({"_id": ObjectId(args["t"])}, {"$set": {"bumpNum": forum["bump"]}}, upsert=False, multi=False)
+
+	# Update last posts in forum and thread
+	colForums.update({"_id": thread["forum"]}, {"$set": {"lastPost": post_id}}, upsert=False, multi=False)
+	colThreads.update({"_id": ObjectId(args["t"])}, {"$set": {"lastPost": post_id}}, upsert=False, multi=False)
 
 	return page
