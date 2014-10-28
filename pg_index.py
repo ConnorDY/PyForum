@@ -19,6 +19,10 @@ def get(ts, r, args, s):
 	# Generate Top
 	r_top = genparts.genTop("Forums", s.headers)
 
+	# Generate Navigation Tree
+	sections = []
+	r_navTree = genparts.genNavTree(sections)
+
 	## Create Page ##
 	r_board = ""
 
@@ -28,7 +32,7 @@ def get(ts, r, args, s):
 
 		# Loop through forums in category
 		for forum in colForums.find({"cat": cat["_id"]}).sort("order", 1):
-			r_forums += temps["forum"].format(fid=forum["_id"],forumName=forum["name"],forumDesc=forum["desc"],topicNum=forum["numTopics"],postNum=forum["numPosts"],lastPostTime="")
+			r_forums += temps["forum"].format(fid=forum["_id"],forumName=forum["name"],forumDesc=forum["desc"],numThreads=forum["numThreads"],numPosts=forum["numPosts"],lastPostTime="")
 		
 		r_categories = temps["category"].format(cid=cat["_id"],title=cat["title"],forums=r_forums)
 		r_board += r_categories+"<br />"
@@ -37,4 +41,4 @@ def get(ts, r, args, s):
 	r_bottom = genparts.genBottom(ts)
 
 	# Return modified template
-	return r.format(board=r_board,top=r_top,bottom=r_bottom)
+	return r.format(board=r_board,top=r_top,navTree=r_navTree,bottom=r_bottom)

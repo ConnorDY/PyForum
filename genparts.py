@@ -28,3 +28,13 @@ def genBottom(ts):
 	r_elapsed = time.time()-ts
 
 	return temps["bottom"].format(time=r_time,elapsed=r_elapsed)
+
+def genNavTree(sections):
+	temps = loadTemplates(["navTree"])
+
+	r_navTree = ""
+
+	for section in sections:
+		r_navTree += "&nbsp;&raquo;&nbsp;<a href=\"{}\">{}</a>".format(section["link"], section["text"])
+
+	return temps["navTree"].format(navTree=r_navTree)

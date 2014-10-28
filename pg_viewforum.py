@@ -20,19 +20,25 @@ def get(ts, r, args, s):
 	# Get Forum Name
 	forum = colForums.find_one({"_id": ObjectId(args["f"])})
 	r_forumName = forum["name"]
+	r_numThreads = forum["numThreads"]
 
 	# Generate Top
 	r_top = genparts.genTop("View Forum | " + r_forumName, s.headers)
+
+	# Generate Navigation Tree
+	sections = []
+	sections.append(dict(text=forum["name"], link="viewforum?f={}".format(args["f"])))
+	r_navTree = genparts.genNavTree(sections)
 
 	# Generate Page
 	r_threads = ""
 
 	for thread in colThreads.find({"forum": ObjectId(args["f"])}).sort("order", 1):
-		r_threads += temps["thread"].format(tid=thread["_id"],title=thread["title"],author=thread["author"],replyNum=thread["numReplies"],viewNum=thread["numViews"],lastPost="")
+		r_threads += temps["thread"].format(tid=thread["_id"],title=thread["title"],author=thread["author"],numReplies=thread["numReplies"],numViews=thread["numViews"],lastPost="")
 
 
 	# Generate Bottom
 	r_bottom = genparts.genBottom(ts)
 
 	# Return modified template
-	return r.format(threads=r_threads,top=r_top,bottom=r_bottom,forumName=r_forumName)
+	return r.format(threads=r_threads,top=r_top,navTree=r_navTree,bottom=r_bottom,forumName=r_forumName,fid=args["f"],numThreads=r_numThreads)
