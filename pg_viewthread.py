@@ -27,14 +27,13 @@ def get(ts, r, args, s):
 
 	forum = colForums.find_one({"_id": thread["forum"]})
 
-	# Generate Top
-	r_top = genparts.genTop("View Thread | " + r_threadName, s.headers)
-
 	# Generate Navigation Tree
-	sections = []
-	sections.append(dict(text=forum["name"], link="viewforum?f={}".format(forum["_id"])))
-	sections.append(dict(text=thread["title"], link="viewthread?t={}".format(args["t"])))
-	r_navTree = genparts.genNavTree(sections)
+	navSections = []
+	navSections.append(dict(text=forum["name"], link="viewforum?f={}".format(forum["_id"])))
+	navSections.append(dict(text=thread["title"], link="viewthread?t={}".format(args["t"])))
+
+	# Generate Top
+	r_top = genparts.genTop("View Thread | " + r_threadName, s.headers, navSections)
 
 	# Generate Page
 	r_posts = ""
@@ -49,7 +48,7 @@ def get(ts, r, args, s):
 	r_bottom = genparts.genBottom(ts)
 
 	# Return modified template
-	return r.format(posts=r_posts,top=r_top,navTree=r_navTree,bottom=r_bottom,threadName=r_threadName,tid=r_tid)
+	return r.format(posts=r_posts,top=r_top,bottom=r_bottom,threadName=r_threadName,tid=r_tid)
 
 	
 def post(s, form, args):

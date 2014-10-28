@@ -17,11 +17,8 @@ def get(ts, r, args, s):
 	temps = loadTemplates(["forum", "category"])
 
 	# Generate Top
-	r_top = genparts.genTop("Forums", s.headers)
-
-	# Generate Navigation Tree
 	sections = []
-	r_navTree = genparts.genNavTree(sections)
+	r_top = genparts.genTop("Forums", s.headers, sections)
 
 	## Create Page ##
 	r_board = ""
@@ -41,4 +38,4 @@ def get(ts, r, args, s):
 	r_bottom = genparts.genBottom(ts)
 
 	# Return modified template
-	return r.format(board=r_board,top=r_top,navTree=r_navTree,bottom=r_bottom)
+	return r.format(board=r_board,top=r_top,bottom=r_bottom)

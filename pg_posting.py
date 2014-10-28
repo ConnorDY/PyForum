@@ -17,19 +17,18 @@ def get(ts, r, args, s):
 	forum = colForums.find_one({"_id": ObjectId(args["f"])})
 	r_forumName = forum["name"]
 
-	# Generate Top
-	r_top = genparts.genTop("Creating a Thread | " + r_forumName, s.headers)
-
 	# Generate Navigation Tree
 	sections = []
 	sections.append(dict(text=forum["name"], link="viewforum?f={}".format(args["f"])))
-	r_navTree = genparts.genNavTree(sections)
+
+	# Generate Top
+	r_top = genparts.genTop("Creating a Thread | " + r_forumName, s.headers, sections)
 
 	# Generate Bottom
 	r_bottom = genparts.genBottom(ts)
 
 	# Return modified template
-	return r.format(top=r_top,navTree=r_navTree,bottom=r_bottom,forumName=r_forumName,fid=args["f"])
+	return r.format(top=r_top,bottom=r_bottom,forumName=r_forumName,fid=args["f"])
 
 def post(s, form, args):
 	from functions import checkLogin

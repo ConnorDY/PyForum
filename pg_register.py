@@ -13,7 +13,8 @@ def get(ts, r, args, s):
 		return "Redirect: /"
 
 	# Generate Top
-	r_top = genparts.genTop("Register", s.headers)
+	sections = []
+	r_top = genparts.genTop("Register", s.headers,sections)
 
 	# Generate Bottom
 	r_bottom = genparts.genBottom(ts)

@@ -4,7 +4,7 @@ from functions import checkLogin
 import time
 import datetime
 
-def genTop(title, headers):
+def genTop(title, headers, navSections):
 	temps = loadTemplates(["top", "header"])
 
 	r_navbar = ""
@@ -18,8 +18,12 @@ def genTop(title, headers):
 	r_navbar += "<a href=\"./faq\">FAQ</a>"
 
 	r_header = temps["header"].format(navbar=r_navbar)
+
+	r_navTree = genNavTree(navSections)
+
+	r_time = datetime.datetime.fromtimestamp(time.time()).strftime("%a %b %d, %Y %I:%M %p")
 	
-	return temps["top"].format(header=r_header,pageTitle=title)
+	return temps["top"].format(header=r_header,pageTitle=title,time=r_time,navTree=r_navTree)
 
 def genBottom(ts):
 	temps = loadTemplates(["bottom"])
