@@ -24,9 +24,9 @@ def get(ts, r, args, s):
 
 def post(s, form, args):
 	# Make sure values entered are alright
+	from functions import checkFieldsBlank
 	fields = ["username", "password"]
-	if not all(str in form for str in fields):
-		print("Form not filled out completely.")
+	if checkFieldsBlank(form, fields):
 		return "/login"
 
 	# Connect to Mongo DB

@@ -38,3 +38,15 @@ def getUsername(headers):
 	
 	# Return username
 	return C["username"].value
+
+def checkFieldsBlank(form, fields):
+	if not all(str in form for str in fields):
+		print("Form not filled out completely.")
+		return True
+	else:
+		for field in fields:
+			if form[field].value.strip() == "":
+				print("Form not filled out completely.")
+				return True
+
+	return False

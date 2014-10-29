@@ -31,6 +31,15 @@ def get(ts, r, args, s):
 	return r.format(top=r_top,bottom=r_bottom,forumName=r_forumName,fid=args["f"])
 
 def post(s, form, args):
+	page = "/posting?f={}".format(args["f"])
+
+	# Make sure values entered are alright
+	from functions import checkFieldsBlank
+	fields = ["subject", "message"]
+	if checkFieldsBlank(form, fields):
+		return page
+
+	# Import needed functions
 	from functions import checkLogin
 	import time
 	import datetime

@@ -24,10 +24,9 @@ def get(ts, r, args, s):
 
 def post(s, form, args):
 	# Make sure values entered are alright
-	#form = {key: value.strip() for key, value in form.items() if value.strip()}
+	from functions import checkFieldsBlank
 	fields = ["username", "email", "password"]
-	if not all(str in form for str in fields):
-		print("Form not filled out completely.")
+	if checkFieldsBlank(form, fields):
 		return "/register"
 
 	# Connect to Mongo DB

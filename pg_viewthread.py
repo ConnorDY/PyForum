@@ -64,13 +64,13 @@ def post(s, form, args):
 	if not checkLogin(s.headers):
 		return "/login"
 
-	# Import function to get the username from the cookie
+	# Import needed functions
 	from functions import getUsername
+	from functions import checkFieldsBlank
 
 	# Make sure values entered are alright
 	fields = ["message"]
-	if not all(str in form for str in fields):
-		print("Form not filled out completely.")
+	if checkFieldsBlank(form, fields):
 		return page
 
 	# Connect to Mongo DB
