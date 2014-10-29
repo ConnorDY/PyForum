@@ -85,7 +85,8 @@ def post(s, form, args):
 	# Insert reply into database
 	reply = {"thread": ObjectId(args["t"]),
 			"author": getUsername(s.headers),
-			"content": form["message"].value}
+			"content": form["message"].value,
+			"time": time.time()}
 	
 	post_id = colPosts.insert(reply)
 
