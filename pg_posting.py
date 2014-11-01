@@ -6,6 +6,8 @@ from bson.objectid import ObjectId
 from loadtemplates import loadTemplates
 import genparts
 
+from functions import formatPost
+
 def get(ts, r, args, s):
 	# Connect to Mongo DB
 	client = MongoClient("mongodb://localhost:27017/")
@@ -82,7 +84,7 @@ def post(s, form, args):
 	# Insert first post into database
 	post = {"thread": thread_id,
 			"author": userId,
-			"content": form["message"].value,
+			"content": formatPost(form["message"].value),
 			"time": time.time()}
 
 	post_id = colPosts.insert(post)

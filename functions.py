@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from html.parser import HTMLParser
 from http import cookies
 from types import *
 
@@ -89,3 +90,39 @@ def checkFieldsBlank(form, fields):
 				return True
 
 	return False
+
+class MLStripper(HTMLParser):
+	def __init__(self):
+		self.reset()
+		self.strict = False
+		self.convert_charrefs= True
+		self.fed = []
+	def handle_data(self, d):
+		self.fed.append(d)
+	def get_data(self):
+		return ''.join(self.fed)
+
+def strip_tags(html):
+	s = MLStripper()
+	s.feed(html)
+	return s.get_data()
+
+def addSlashes(s):
+	l = ["\\", '"', "'", "\0", ]
+
+	for i in l:
+		if i in s:
+			s = s.replace(i, '\\'+i)
+
+	return s
+
+def formatPost(s):
+	s = addSlashes(s)
+
+	return s
+
+def formatPostDB(s):
+	s = s.replace("\n", "<br />")
+	s = bytes(s, "utf-8").decode("unicode_escape")
+
+	return s
