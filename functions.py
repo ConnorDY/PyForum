@@ -10,6 +10,10 @@ def checkLogin(headers):
 	# Retrieve Cookies
 	C = cookies.SimpleCookie()
 	C.load(headers.get("Cookie"))
+
+	fields = ["username", "password"]
+	if not all(str in C for str in fields):
+		return False
 	
 	# Connect to Mongo DB
 	client = MongoClient("mongodb://localhost:27017/")
@@ -19,7 +23,7 @@ def checkLogin(headers):
 	# Check Password
 	user = col.find_one({"username": C["username"].value})
 
-	if user:
+	if user is not None:
 		if user["password"] == C["password"].value:
 			return True # Correct
 		else:
