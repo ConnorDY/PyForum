@@ -108,7 +108,7 @@ def strip_tags(html):
 	return s.get_data()
 
 def addSlashes(s):
-	l = ["\\", '"', "'", "\0", ]
+	l = ["\\", '"', "'", "\0"]
 
 	for i in l:
 		if i in s:
@@ -118,8 +118,8 @@ def addSlashes(s):
 
 def formatPost(s):
 	s = addSlashes(s)
-	s = s.replace("Ã¯Â¿Â½", "\"")
-	s = s.replace("�", "\"")
+	s = s.replace("Ã¯Â¿Â½", "\\\"")
+	s = s.replace("�", "\\\"")
 
 	return s
 

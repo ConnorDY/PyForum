@@ -51,7 +51,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 			path = "/index"
 		else:
 			# Images
-			if tPath.endswith(".gif") or tPath.endswith(".png") or tPath.endswith(".jpeg") or tPath.endswith(".jpg"):
+			if tPath.endswith(".gif") or tPath.endswith(".png") or tPath.endswith(".jpeg") or tPath.endswith(".jpg") or tPath.endswith(".ico"):
 				path = tPath[1:] # Cut off leading forward slash
 				reqType = IMG
 
