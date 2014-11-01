@@ -119,6 +119,7 @@ def addSlashes(s):
 def formatPost(s):
 	s = addSlashes(s)
 	s = s.replace("Ã¯Â¿Â½", "\"")
+	s = s.replace("�", "\"")
 
 	return s
 
@@ -126,5 +127,6 @@ def formatPostDB(s):
 	s = s.replace("\n", "<br />")
 	s = bytes(s, "utf-8").decode("unicode_escape")
 	s = s.replace("Ã¯Â¿Â½", "\"")
+	s = s.replace("�", "\"")
 
 	return s
