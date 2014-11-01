@@ -9,6 +9,8 @@ import datetime
 from loadtemplates import loadTemplates
 import genparts
 
+from functions import getUsernameById
+
 def get(ts, r, args, s):
 	# Connect to Mongo DB
 	client = MongoClient("mongodb://localhost:27017/")
@@ -43,7 +45,7 @@ def get(ts, r, args, s):
 
 	for post in colPosts.find({"thread": ObjectId(args["t"])}).sort("_id", 1):
 		r_postTime = datetime.datetime.fromtimestamp(post["time"]).strftime("%a %b %d, %Y %I:%M %p")
-		r_posts += temps["post"].format(author=post["author"],content=post["content"],postTime=r_postTime)
+		r_posts += temps["post"].format(author=getUsernameById(post["author"]),content=post["content"],postTime=r_postTime)
 
 	# Update thread views
 	colThreads.update({"_id": ObjectId(args["t"])}, {"$inc": {"numViews": 1}}, upsert=False, multi=False)
@@ -66,6 +68,7 @@ def post(s, form, args):
 
 	# Import needed functions
 	from functions import getUsername
+	from functions import getUserId
 	from functions import checkFieldsBlank
 
 	# Make sure values entered are alright
@@ -84,7 +87,7 @@ def post(s, form, args):
 
 	# Insert reply into database
 	reply = {"thread": ObjectId(args["t"]),
-			"author": getUsername(s.headers),
+			"author": getUserId(getUsername(s.headers)),
 			"content": form["message"].value,
 			"time": time.time()}
 	

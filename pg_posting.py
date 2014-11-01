@@ -49,6 +49,7 @@ def post(s, form, args):
 		return "/login"
 
 	from functions import getUsername
+	from functions import getUserId
 
 	# Connect to Mongo DB
 	client = MongoClient("mongodb://localhost:27017/")
@@ -61,6 +62,7 @@ def post(s, form, args):
 
 	# Get username
 	username = getUsername(s.headers)
+	userId = getUserId(username)
 
 	# Get and increase bump number for forum
 	colForums.update({"_id": ObjectId(args["f"])}, {"$inc": {"bump": 1}}, upsert=False, multi=False)
@@ -70,7 +72,7 @@ def post(s, form, args):
 	# Insert thread into database
 	thread = {"forum": ObjectId(args["f"]),
 			  "title": form["subject"].value,
-			  "author": username,
+			  "author": userId,
 			  "numReplies": 0,
 			  "numViews": 0,
 			  "bumpNum": bump}
@@ -79,7 +81,7 @@ def post(s, form, args):
 
 	# Insert first post into database
 	post = {"thread": thread_id,
-			"author": username,
+			"author": userId,
 			"content": form["message"].value,
 			"time": time.time()}
 

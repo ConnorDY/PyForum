@@ -9,6 +9,8 @@ import datetime
 from loadtemplates import loadTemplates
 import genparts
 
+from functions import getUsernameById
+
 def get(ts, r, args, s):
 	# Connect to Mongo DB
 	client = MongoClient("mongodb://localhost:27017/")
@@ -45,7 +47,7 @@ def get(ts, r, args, s):
 				# Create last post string
 				r_lastPost = "<p class=\"topicdetails\" style=\"white-space: nowrap;\">{}</p>".format(lastPostTime)
 				r_lastPost += "<p class=\"topicdetails\">"
-				r_lastPost += "<a href=\"./member?u=\" style=\"color: #AA0000;\" class=\"username-coloured\">{}&nbsp;".format(post["author"])
+				r_lastPost += "<a href=\"./member?u=\" style=\"color: #AA0000;\" class=\"username-coloured\">{}&nbsp;".format(getUsernameById(post["author"]))
 				r_lastPost += "<a href=\"./viewthread?t={}\"><img src=\"./styles/acidtech/imageset/icon_topic_latest.gif\" width=\"13\" height=\"9\" alt=\"View the latest post\" title=\"View the latest post\"></a>".format(post["thread"])
 				r_lastPost += "</p>"
 
