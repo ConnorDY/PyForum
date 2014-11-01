@@ -124,11 +124,11 @@ def formatPost(s):
 	return s
 
 def formatPostDB(s):
-	s = s.replace(" ", "&nbsp;")
+	s = s.replace("     ", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
 	s = s.replace("\n", "<br />")
 	s = bytes(s, "utf-8").decode("unicode_escape")
 	s = s.replace("Ã¯Â¿Â½", "\"")
 	s = s.replace("�", "\"")
-	s = s.replace("\t", "&#09;")
+	s = s.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
 
 	return s
