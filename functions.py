@@ -32,6 +32,27 @@ def checkLogin(headers):
 	else:
 		return False # User not found
 
+def getRank(headers):
+	if not checkLogin(headers):
+		return -1
+
+	# Retrieve Cookies
+	C = cookies.SimpleCookie()
+	C.load(headers.get("Cookie"))
+
+	fields = ["username", "password"]
+	if not all(str in C for str in fields):
+		return False
+
+	# Connect to Mongo DB
+	client = MongoClient("mongodb://localhost:27017/")
+	db = client.db
+	col = db.users
+
+	# Grab rank and return it
+	user = col.find_one({"username": C["username"].value})
+	return user["rank"]
+
 def getUsername(headers):
 	if headers.get("Cookie") is None:
 		return None

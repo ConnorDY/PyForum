@@ -2,7 +2,7 @@ var ca_item;
 var ca_item2;
 var ca_list;
 
-onload_functions[onload_functions.length] = 'ca_resize_images();';
+//onload_functions[onload_functions.length] = 'ca_resize_images();';
 
 // resize images
 function ca_resize_images()

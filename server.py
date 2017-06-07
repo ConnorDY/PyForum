@@ -192,6 +192,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 # Create TCP HTTP Server
 httpd = socketserver.TCPServer(("", PORT), Handler)
+httpd.allow_reuse_address = True
 
 print("serving at port", PORT)
 

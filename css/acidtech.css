@@ -798,3 +798,9 @@ pre {
     background-color: #FFF;
     color: #000;
 }
+
+/* New stuff */
+.ui-sortable-handle
+{
+	padding: 4px;
+}

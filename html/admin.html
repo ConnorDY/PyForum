@@ -1,0 +1,45 @@
+{top}
+
+<table class="tablebg breadcrumb" width="100%" cellspacing="0" cellpadding="0" style="margin-top: 5px;">
+	<tbody>
+		<tr>
+			<td class="row1">
+				<u><h2>Drag and drop categories/forums to re-order them</h2></u><br />
+				<ul id="sortableCategories">
+					{forumLayout}
+				</ul>
+				<form id="updateSorting">
+					<input id="updateSortingButton" type="button" value="Save Changes" />
+				</form>
+				<br />
+				<u><h2>Add a new category:</h2></u>
+				<br />
+				<u><h2>Add a new forum:</h2></u>
+				<br />
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<script type="text/javascript">
+	$( function() {{
+		$("#sortableCategories").sortable()
+		$("#sortableCategories").disableSelection()
+
+		$("[id^=sortableForums]").sortable()
+		$("[id^=sortableForums]").disableSelection()
+	}} );
+
+	$("#updateSortingButton").click(function() {{
+		$.each($("#sortableCategories").children(), function(index, value) {{
+			console.log($(value).attr('id'));
+			$.each($(value).children(), function(index2, value2) {{
+				$.each($(value2).children(), function(index3, value3) {{
+					console.log($(value3).attr('id'));
+				}})
+			}})
+		}})
+	}})
+</script>
+
+{bottom}

@@ -41,4 +41,7 @@ def genNavTree(sections):
 	for section in sections:
 		r_navTree += "&nbsp;&raquo;&nbsp;<a href=\"{}\">{}</a>".format(section["link"], section["text"])
 
-	return temps["navTree"].format(navTree=r_navTree)
+	# DST
+	r_dst = " [ <abbr title=\"Daylight Saving Time\">DST</abbr> ]"
+
+	return temps["navTree"].format(navTree=r_navTree,dst=r_dst)
