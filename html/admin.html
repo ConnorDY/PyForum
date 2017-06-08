@@ -9,26 +9,28 @@
 					{forumLayout}
 				</ul>
 				<br />
-				<form id="updateSorting" action="./admin?reorder" method="POST">
+				<form id="updateSorting" action="./admin?reorder=" method="POST">
 					<input id="updateSortingButton" type="button" value="Save Changes" />
 					<input id="newSorting" name="ordering" type="hidden" />
 				</form>
 				<br /><br />
 				<u><h2>Add a new category:</h2></u><br />
-				<form id="newCategory" action="./admin?newCat" method="POST">
+				<form id="newCategory" action="./admin?newCat=" method="POST">
 					<p>New Category Name:</p>
 					<input type="text" name="name" />
 					<input type="submit" value="Create Category" />
 				</form>
 				<br /><br />
 				<u><h2>Add a new forum:</h2></u><br />
-				<form id="newForum" action="./admin?newForum" method="POST">
+				<form id="newForum" action="./admin?newForum=" method="POST">
 					<p>New Forum Name:</p>
 					<input type="text" name="name" />
 					<select name="category">
 						<option value="">Select a category...</option>
 						{categoriesOptions}
-					</select>
+					</select><br /><br />
+					<p>Description:</p>
+					<input type="text" name="desc" /><br /><br />
 					<input type="submit" value="Create Forum" />
 				</form>
 				<br />
