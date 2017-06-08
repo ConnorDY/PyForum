@@ -805,3 +805,18 @@ li.ui-sortable-handle
 	padding: 4px;
 	font-size: 12px;
 }
+
+.row1>form
+{
+	font-size: 12px;
+}
+
+#newCategory>p
+{
+	padding-bottom: 4px;
+}
+
+#newForum>p
+{
+	padding-bottom: 4px;
+}

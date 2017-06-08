@@ -8,14 +8,29 @@
 				<ul id="sortableCategories">
 					{forumLayout}
 				</ul>
-				<form id="updateSorting" action="./admin" method="POST">
+				<br />
+				<form id="updateSorting" action="./admin?reorder" method="POST">
 					<input id="updateSortingButton" type="button" value="Save Changes" />
 					<input id="newSorting" name="ordering" type="hidden" />
 				</form>
-				<br />
-				<u><h2>Add a new category:</h2></u>
-				<br />
-				<u><h2>Add a new forum:</h2></u>
+				<br /><br />
+				<u><h2>Add a new category:</h2></u><br />
+				<form id="newCategory" action="./admin?newCat" method="POST">
+					<p>New Category Name:</p>
+					<input type="text" name="name" />
+					<input type="submit" value="Create Category" />
+				</form>
+				<br /><br />
+				<u><h2>Add a new forum:</h2></u><br />
+				<form id="newForum" action="./admin?newForum" method="POST">
+					<p>New Forum Name:</p>
+					<input type="text" name="name" />
+					<select name="category">
+						<option value="">Select a category...</option>
+						{categoriesOptions}
+					</select>
+					<input type="submit" value="Create Forum" />
+				</form>
 				<br />
 			</td>
 		</tr>

@@ -25,25 +25,26 @@ def get(ts, r, args, s):
 	colCategories = db.categories
 	colForums = db.forums
 
-	# Get categories
-	r_forumLayout = ""
-
 	# Loop through categories
+	r_forumLayout = ""
+	r_categoriesOptions = ""
 	i = 0
 	j = 0
+	
 	for cat in colCategories.find().sort("order", 1):
 		r_forumLayout += "<li id=\"sortableCategory"+str(i)+"\">"+cat["title"]+"<ul id=\"sortableForums"+str(i)+"\">"
+		r_categoriesOptions += "<option value=\""+str(cat["_id"])+"\">"+cat["title"]+"</option>\n"
 
 		# Loop through forums in category
 		for forum in colForums.find({"cat": cat["_id"]}).sort("order", 1):
-			r_forumLayout += "<li id=\"sortableForum"+str(j)+"\">"+forum["name"]+"</li>"
+			r_forumLayout += "<li id=\"sortableForum"+str(j)+"\">"+forum["name"]+"</li>\n"
 			j += 1
 
-		r_forumLayout += "</ul></li>"
+		r_forumLayout += "</ul></li>\n"
 		i += 1
 
 	# Return modified template
-	return r.format(top=r_top,bottom=r_bottom,forumLayout=r_forumLayout)
+	return r.format(top=r_top,bottom=r_bottom,forumLayout=r_forumLayout,categoriesOptions=r_categoriesOptions)
 
 def post(s, form, args):
 	# Redirect if not an admin
