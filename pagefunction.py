@@ -66,4 +66,9 @@ def post(path):
 		import pg_posting
 		func = pg_posting.post
 
+	# Admin Control Panel
+	elif path == "/admin":
+		import pg_admin
+		func = pg_admin.post
+
 	return func

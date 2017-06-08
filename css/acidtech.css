@@ -800,7 +800,8 @@ pre {
 }
 
 /* New stuff */
-.ui-sortable-handle
+li.ui-sortable-handle
 {
 	padding: 4px;
+	font-size: 12px;
 }

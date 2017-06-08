@@ -8,8 +8,9 @@
 				<ul id="sortableCategories">
 					{forumLayout}
 				</ul>
-				<form id="updateSorting">
+				<form id="updateSorting" action="./admin" method="POST">
 					<input id="updateSortingButton" type="button" value="Save Changes" />
+					<input id="newSorting" name="ordering" type="hidden" />
 				</form>
 				<br />
 				<u><h2>Add a new category:</h2></u>
@@ -31,14 +32,19 @@
 	}} );
 
 	$("#updateSortingButton").click(function() {{
+		var list = "";
+
 		$.each($("#sortableCategories").children(), function(index, value) {{
-			console.log($(value).attr('id'));
+			list += $(value).attr('id') + ";";
 			$.each($(value).children(), function(index2, value2) {{
 				$.each($(value2).children(), function(index3, value3) {{
-					console.log($(value3).attr('id'));
+					list += $(value3).attr('id') + ";";
 				}})
 			}})
 		}})
+
+		$("#newSorting").val(list)
+		$("#updateSorting").submit()
 	}})
 </script>
 
