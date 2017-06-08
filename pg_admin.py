@@ -20,32 +20,42 @@ def get(ts, r, args, s):
 	# Generate Bottom
 	r_bottom = genparts.genBottom(ts)
 
-	# Connect to Mongo DB
-	client = MongoClient("mongodb://localhost:27017/")
-	db = client.db
-	colCategories = db.categories
-	colForums = db.forums
+	# Generate Page
+	r_adminSection = ""
 
-	# Loop through categories
-	r_forumLayout = ""
-	r_categoriesOptions = ""
-	i = 0
-	j = 0
-	
-	for cat in colCategories.find().sort("order", 1):
-		r_forumLayout += "<li id=\"sortableCategory"+str(i)+"\">"+cat["title"]+"<ul id=\"sortableForums"+str(i)+"\">"
-		r_categoriesOptions += "<option value=\""+str(cat["_id"])+"\">"+cat["title"]+"</option>\n"
+	# Manage Forums/Categories
+	if args["path"] == "manageForums":
+		with open("html/admin/manageForums.html", "r") as file:
+			r_adminSection = file.read()
 
-		# Loop through forums in category
-		for forum in colForums.find({"cat": cat["_id"]}).sort("order", 1):
-			r_forumLayout += "<li id=\"sortableForum"+str(j)+"\">"+forum["name"]+"</li>\n"
-			j += 1
+		# Connect to Mongo DB
+		client = MongoClient("mongodb://localhost:27017/")
+		db = client.db
+		colCategories = db.categories
+		colForums = db.forums
 
-		r_forumLayout += "</ul></li>\n"
-		i += 1
+		# Loop through categories
+		r_forumLayout = ""
+		r_categoriesOptions = ""
+		i = 0
+		j = 0
+		
+		for cat in colCategories.find().sort("order", 1):
+			r_forumLayout += "<li id=\"sortableCategory"+str(i)+"\">"+cat["title"]+"<ul id=\"sortableForums"+str(i)+"\">"
+			r_categoriesOptions += "<option value=\""+str(cat["_id"])+"\">"+cat["title"]+"</option>\n"
+
+			# Loop through forums in category
+			for forum in colForums.find({"cat": cat["_id"]}).sort("order", 1):
+				r_forumLayout += "<li id=\"sortableForum"+str(j)+"\">"+forum["name"]+"</li>\n"
+				j += 1
+
+			r_forumLayout += "</ul></li>\n"
+			i += 1
+
+		r_adminSection = r_adminSection.format(forumLayout=r_forumLayout,categoriesOptions=r_categoriesOptions)
 
 	# Return modified template
-	return r.format(top=r_top,bottom=r_bottom,forumLayout=r_forumLayout,categoriesOptions=r_categoriesOptions)
+	return r.format(top=r_top,bottom=r_bottom,adminSection=r_adminSection)
 
 def post(s, form, args):
 	# Redirect if not an admin
@@ -53,7 +63,7 @@ def post(s, form, args):
 		return "/"
 
 	if len(args) != 1:
-		return "/admin"
+		return "/admin/"
 
 	from functions import checkFieldsBlank
 
@@ -64,7 +74,7 @@ def post(s, form, args):
 		# Make sure values entered are alright
 		fields = ["ordering"]
 		if checkFieldsBlank(form, fields):
-			return "/admin"
+			return "/admin/Forums"
 
 		# Parse ordering
 		newOrdering = form["ordering"].value.split(";")
@@ -109,7 +119,7 @@ def post(s, form, args):
 		# Make sure values entered are alright
 		fields = ["name"]
 		if checkFieldsBlank(form, fields):
-			return "/admin"
+			return "/admin/manageForums"
 
 		# Connect to Mongo DB
 		client = MongoClient("mongodb://localhost:27017/")
@@ -130,7 +140,7 @@ def post(s, form, args):
 		# Make sure values entered are alright
 		fields = ["name", "category", "desc"]
 		if checkFieldsBlank(form, fields):
-			return "/admin"
+			return "/admin/manageForums"
 
 		# Connect to Mongo DB
 		client = MongoClient("mongodb://localhost:27017/")
@@ -155,4 +165,4 @@ def post(s, form, args):
 			colForums.insert(newForum)
 			print("New forum added to \""+form["category"].value+"\": "+form["name"].value)
 
-	return "/admin"
+	return "/admin/"

@@ -820,3 +820,32 @@ li.ui-sortable-handle
 {
 	padding-bottom: 4px;
 }
+
+.tablebg.breadcrumb.floatLeft
+{
+	float: left;
+	width: 300px;
+	text-align: center;
+}
+
+.tablebg.breadcrumb.floatLeft tr
+{
+	cursor: pointer;
+}
+
+.tablebg.breadcrumb.floatLeft tr:hover
+{
+	color: #F0E80A;
+}
+
+.tablebg.breadcrumb.floatRight
+{
+	float: right;
+	width: calc(100% - 310px);
+}
+
+.tablebg.breadcrumb.floatRight td
+{
+	padding-left: 8px;
+	padding-top: 4px;
+}

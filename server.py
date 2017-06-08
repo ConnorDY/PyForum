@@ -49,6 +49,13 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 		# Index Page
 		if tPath == "/":
 			path = "/index"
+		elif tPath == "/admin" or tPath == "/admin/":
+			redirect = True
+			redirectPg = "/admin/manageForums"
+			path = "/404" # kind of a hack, need to fix later
+		elif tPath[0:7] == "/admin/":
+			path = "/admin"
+			sArgs = {"path":tPath[7:]}
 		else:
 			# Images
 			if tPath.endswith(".gif") or tPath.endswith(".png") or tPath.endswith(".jpeg") or tPath.endswith(".jpg") or tPath.endswith(".ico"):

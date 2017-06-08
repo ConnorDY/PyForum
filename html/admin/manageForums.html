@@ -1,0 +1,55 @@
+<u><h2>Drag and drop categories/forums to re-order them</h2></u><br />
+<ul id="sortableCategories">
+	{forumLayout}
+</ul>
+<br />
+<form id="updateSorting" action="/admin?reorder=" method="POST">
+	<input id="updateSortingButton" type="button" value="Save Changes" />
+	<input id="newSorting" name="ordering" type="hidden" />
+</form>
+<br /><br />
+<u><h2>Add a new category:</h2></u><br />
+<form id="newCategory" action="/admin?newCat=" method="POST">
+	<p>New Category Name:</p>
+	<input type="text" name="name" />
+	<input type="submit" value="Create Category" />
+</form>
+<br /><br />
+<u><h2>Add a new forum:</h2></u><br />
+<form id="newForum" action="/admin?newForum=" method="POST">
+	<p>New Forum Name:</p>
+	<input type="text" name="name" />
+	<select name="category">
+		<option value="">Select a category...</option>
+		{categoriesOptions}
+	</select><br /><br />
+	<p>Description:</p>
+	<input type="text" name="desc" /><br /><br />
+	<input type="submit" value="Create Forum" />
+</form>
+
+<script type="text/javascript">
+	$( function() {{
+		$("#sortableCategories").sortable()
+		$("#sortableCategories").disableSelection()
+
+		$("[id^=sortableForums]").sortable()
+		$("[id^=sortableForums]").disableSelection()
+	}} );
+
+	$("#updateSortingButton").click(function() {{
+		var list = "";
+
+		$.each($("#sortableCategories").children(), function(index, value) {{
+			list += $(value).attr('id') + ";";
+			$.each($(value).children(), function(index2, value2) {{
+				$.each($(value2).children(), function(index3, value3) {{
+					list += $(value3).attr('id') + ";";
+				}})
+			}})
+		}})
+
+		$("#newSorting").val(list)
+		$("#updateSorting").submit()
+	}})
+</script>
