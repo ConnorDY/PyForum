@@ -806,6 +806,11 @@ li.ui-sortable-handle
 	font-size: 12px;
 }
 
+li.ui-sortable-handle:hover
+{
+	cursor: row-resize;
+}
+
 #sortableCategories li>span
 {
 	font-size: 12px;
@@ -816,6 +821,11 @@ li.ui-sortable-handle
 	position: relative;
 	top: 3px;
 	left: -5px;
+}
+
+.sortEditButton:hover
+{
+	cursor: pointer;
 }
 
 .row1>form

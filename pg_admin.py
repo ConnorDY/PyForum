@@ -59,7 +59,7 @@ def get(ts, r, args, s):
 				layoutData[cat["title"]]["forums"][forum["name"]] = {}
 				layoutData[cat["title"]]["forums"][forum["name"]]["_id"] = str(forum["_id"])
 				layoutData[cat["title"]]["forums"][forum["name"]]["desc"] = forum["desc"]
-				layoutData[cat["title"]]["forums"][forum["name"]]["cat"] = forum["cat"]
+				layoutData[cat["title"]]["forums"][forum["name"]]["cat"] = str(forum["cat"])
 
 			r_forumLayout += "</ul></li>\n"
 			i += 1

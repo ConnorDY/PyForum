@@ -30,7 +30,7 @@
 
 <div id="editElement" class="tablebg">
 	<div>
-		<u><h2>Edit Element:</h2></u>
+		<u><h2 id="editElementType"></h2></u>
 		<form action="/admin?editElement=" method="POST">
 			<div style="height: 5px;">&nbsp;</div>
 			Name:<br />
@@ -41,6 +41,7 @@
 			<select id="editElementCat" name="category">
 				{categoriesOptions}
 			</select><br class="editElementSpacer" /><br class="editElementSpacer" />
+			<input type="hidden" id="editElement_id" name="id" />
 			<input type="button" value="Cancel" onclick="$('#editElement').css('display', 'none')" />
 			<input type="submit" value="Update Element" />
 		</form>
@@ -82,6 +83,8 @@
 		elem.css("left", pos.left + 8)
 
 		var id = $(this).attr("id")
+		$("#editElement_id").val(id)
+
 		var type = id.substring(0,1)
 		id = id.substring(2)
 
@@ -93,6 +96,8 @@
 			$("#pElementDesc").css("display", "none")
 			$("#pElementCat").css("display", "none")
 			$("#editElement").css("height", "103px")
+
+			$("#editElementType").html("Edit Category:")
 
 			var catName = '';
 			Object.keys(layoutData).some(function(key) {{
@@ -112,6 +117,29 @@
 			$("#pElementDesc").css("display", "block")
 			$("#pElementCat").css("display", "block")
 			$("#editElement").css("height", "180px")
+
+			$("#editElementType").html("Edit Forum:")
+
+			var forumName = '';
+			var catName = '';
+
+			Object.keys(layoutData).some(function(categoryKey) {{
+				catName = categoryKey;
+				return Object.keys(layoutData[categoryKey].forums).some(function(forumKey) {{
+					forumName = forumKey;
+					if (layoutData[categoryKey].forums[forumKey]['_id'] == id) return true;
+				}});
+			}});
+
+			var category = layoutData[catName];
+			var forum = category["forums"][forumName];
+
+			$("#editElementName").val(forumName)
+			$("#editElementDesc").val(forum["desc"])
+
+			console.log()
+
+			$("#editElementCat>[value='"+forum["cat"]+"']").prop("selected", "true")
 		}}
 	}})
 </script>
