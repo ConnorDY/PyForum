@@ -177,4 +177,28 @@ def post(s, form, args):
 			colForums.insert(newForum)
 			print("New forum added to \""+form["category"].value+"\": "+form["name"].value)
 
+	# Edit category/forum
+	elif "editElement" in args:
+		# Make sure values entered are alright
+		fields = ["name", "id"]
+		if checkFieldsBlank(form, fields):
+			return "/admin/manageForums"
+
+		# Connect to Mongo DB
+		client = MongoClient("mongodb://localhost:27017/")
+		db = client.db
+
+		# Determine if it's a forum or category
+		if form["id"].value[0:1] == "c":
+			colCategories = db.categories
+			colCategories.find_one_and_update({"_id":ObjectId(form["id"].value[2:])}, {"$set":{"title":form["name"].value}})
+		else:
+			if checkFieldsBlank(form, ["category", "desc"]):
+				return "/admin/manageForums"
+
+			colForums = db.forums
+			colForums.find_one_and_update({"_id":ObjectId(form["id"].value[2:])}, {"$set":{"name":form["name"].value,"desc":form["desc"].value,"cat":ObjectId(form["category"].value)}})
+
+		return "/admin/manageForums"
+
 	return "/admin/"
