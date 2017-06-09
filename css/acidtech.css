@@ -806,6 +806,18 @@ li.ui-sortable-handle
 	font-size: 12px;
 }
 
+#sortableCategories li>span
+{
+	font-size: 12px;
+}
+
+.sortEditButton
+{
+	position: relative;
+	top: 3px;
+	left: -5px;
+}
+
 .row1>form
 {
 	font-size: 12px;
@@ -848,4 +860,41 @@ li.ui-sortable-handle
 {
 	padding-left: 8px;
 	padding-top: 4px;
+}
+
+#editElement
+{
+	position: absolute;
+	width: 300px;
+	display: none;
+	font-size: 12px;
+}
+
+#editElement p,form
+{
+	font-size: 12px;
+}
+
+#editElement form
+{
+	position: relative;
+	top: 2px;
+}
+
+#editElement>div
+{
+	padding: 4px 4px 4px 4px;
+	font-size: 12px;
+}
+
+#editElementCat
+{
+	float: left;
+	position: relative;
+	top: -2px;
+}
+
+#pElementCat
+{
+	float: left;
 }

@@ -28,7 +28,28 @@
 	<input type="submit" value="Create Forum" />
 </form>
 
+<div id="editElement" class="tablebg">
+	<div>
+		<u><h2>Edit Element:</h2></u>
+		<form action="/admin?editElement=" method="POST">
+			<div style="height: 5px;">&nbsp;</div>
+			Name:<br />
+			<input id="editElementName" type="text" name="name" /><br />
+			<p id="pElementDesc"><br />Description:</p>
+			<input id="editElementDesc" type="text" name="desc" /><br />
+			<p id="pElementCat">Category:&nbsp;</p>
+			<select id="editElementCat" name="category">
+				{categoriesOptions}
+			</select><br class="editElementSpacer" /><br class="editElementSpacer" />
+			<input type="button" value="Cancel" onclick="$('#editElement').css('display', 'none')" />
+			<input type="submit" value="Update Element" />
+		</form>
+	</div>
+</div>
+
 <script type="text/javascript">
+	var layoutData = JSON.parse('{layoutJson}');
+
 	$( function() {{
 		$("#sortableCategories").sortable()
 		$("#sortableCategories").disableSelection()
@@ -51,5 +72,46 @@
 
 		$("#newSorting").val(list)
 		$("#updateSorting").submit()
+	}})
+
+	$(".sortEditButton").click(function() {{
+		var elem = $("#editElement");
+		var pos = $(".tablebg.breadcrumb.floatRight>tbody").offset()
+		elem.css("display", "block")
+		elem.css("top", pos.top + 8)
+		elem.css("left", pos.left + 8)
+
+		var id = $(this).attr("id")
+		var type = id.substring(0,1)
+		id = id.substring(2)
+
+		if (type == "c")
+		{{
+			$("#editElementCat").css("display", "none")
+			$("#editElementDesc").css("display", "none")
+			$(".editElementSpacer").css("display", "none")
+			$("#pElementDesc").css("display", "none")
+			$("#pElementCat").css("display", "none")
+			$("#editElement").css("height", "103px")
+
+			var catName = '';
+			Object.keys(layoutData).some(function(key) {{
+				if (layoutData[key]['_id'] == id) {{
+					catName = key;
+					return true;
+				}}
+			}});
+
+			$("#editElementName").val(catName)
+		}}
+		else
+		{{
+			$("#editElementCat").css("display", "block")
+			$("#editElementDesc").css("display", "block")
+			$(".editElementSpacer").css("display", "block")
+			$("#pElementDesc").css("display", "block")
+			$("#pElementCat").css("display", "block")
+			$("#editElement").css("height", "180px")
+		}}
 	}})
 </script>

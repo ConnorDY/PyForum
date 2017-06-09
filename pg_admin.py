@@ -25,6 +25,8 @@ def get(ts, r, args, s):
 
 	# Manage Forums/Categories
 	if args["path"] == "manageForums":
+		import json
+
 		with open("html/admin/manageForums.html", "r") as file:
 			r_adminSection = file.read()
 
@@ -35,24 +37,34 @@ def get(ts, r, args, s):
 		colForums = db.forums
 
 		# Loop through categories
+		layoutData = {}
 		r_forumLayout = ""
 		r_categoriesOptions = ""
 		i = 0
 		j = 0
 		
 		for cat in colCategories.find().sort("order", 1):
-			r_forumLayout += "<li id=\"sortableCategory"+str(i)+"\">"+cat["title"]+"<ul id=\"sortableForums"+str(i)+"\">"
+			r_forumLayout += "<li id=\"sortableCategory"+str(i)+"\"><img class=\"sortEditButton\" id=\"c_"+str(cat["_id"])+"\" src=\"/styles/acidtech/imageset/en/icon_post_edit.gif\"><span>"+cat["title"]+"</span><ul id=\"sortableForums"+str(i)+"\">"
 			r_categoriesOptions += "<option value=\""+str(cat["_id"])+"\">"+cat["title"]+"</option>\n"
+
+			layoutData[cat["title"]] = {}
+			layoutData[cat["title"]]["_id"] = str(cat["_id"])
+			layoutData[cat["title"]]["forums"] = {}
 
 			# Loop through forums in category
 			for forum in colForums.find({"cat": cat["_id"]}).sort("order", 1):
-				r_forumLayout += "<li id=\"sortableForum"+str(j)+"\">"+forum["name"]+"</li>\n"
+				r_forumLayout += "<li id=\"sortableForum"+str(j)+"\"><img class=\"sortEditButton\" id=\"f_"+str(forum["_id"])+"\" src=\"/styles/acidtech/imageset/en/icon_post_edit.gif\"><span>"+forum["name"]+"</span></li>\n"
 				j += 1
+
+				layoutData[cat["title"]]["forums"][forum["name"]] = {}
+				layoutData[cat["title"]]["forums"][forum["name"]]["_id"] = str(forum["_id"])
+				layoutData[cat["title"]]["forums"][forum["name"]]["desc"] = forum["desc"]
+				layoutData[cat["title"]]["forums"][forum["name"]]["cat"] = forum["cat"]
 
 			r_forumLayout += "</ul></li>\n"
 			i += 1
 
-		r_adminSection = r_adminSection.format(forumLayout=r_forumLayout,categoriesOptions=r_categoriesOptions)
+		r_adminSection = r_adminSection.format(forumLayout=r_forumLayout,categoriesOptions=r_categoriesOptions,layoutJson=json.dumps(layoutData))
 
 	# Return modified template
 	return r.format(top=r_top,bottom=r_bottom,adminSection=r_adminSection)
