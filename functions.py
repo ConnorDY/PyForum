@@ -43,7 +43,7 @@ def getRank(headers):
 
 	fields = ["username", "password"]
 	if not all(str in C for str in fields):
-		return False
+		return -1
 
 	# Connect to Mongo DB
 	client = MongoClient(MONGODB)
@@ -52,7 +52,7 @@ def getRank(headers):
 
 	# Grab rank and return it
 	user = col.find_one({"username": C["username"].value})
-	return user["rank"]
+	return user.get("rank", 0)
 
 def getUsername(headers):
 	if headers.get("Cookie") is None:
