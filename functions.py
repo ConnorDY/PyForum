@@ -3,6 +3,7 @@ from bson.objectid import ObjectId
 from html.parser import HTMLParser
 from http import cookies
 from types import *
+from globalvars import *
 
 def checkLogin(headers):
 	if headers.get("Cookie") is None:
