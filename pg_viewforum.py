@@ -13,7 +13,7 @@ from functions import getUsernameById
 
 def get(ts, r, args, s):
 	# Connect to Mongo DB
-	client = MongoClient("mongodb://localhost:27017/")
+	client = MongoClient(MONGODB)
 	db = client.db
 	colForums = db.forums
 	colThreads = db.threads

@@ -17,7 +17,7 @@ def checkLogin(headers):
 		return False
 	
 	# Connect to Mongo DB
-	client = MongoClient("mongodb://localhost:27017/")
+	client = MongoClient(MONGODB)
 	db = client.db
 	col = db.users
 
@@ -45,7 +45,7 @@ def getRank(headers):
 		return False
 
 	# Connect to Mongo DB
-	client = MongoClient("mongodb://localhost:27017/")
+	client = MongoClient(MONGODB)
 	db = client.db
 	col = db.users
 
@@ -70,7 +70,7 @@ def getUsernameById(id_):
 		id_ = ObjectId(id_)
 
 	# Connect to Mongo DB
-	client = MongoClient("mongodb://localhost:27017/")
+	client = MongoClient(MONGODB)
 	db = client.db
 	col = db.users
 
@@ -88,7 +88,7 @@ def getUserId(username):
 		return None
 
 	# Connect to Mongo DB
-	client = MongoClient("mongodb://localhost:27017/")
+	client = MongoClient(MONGODB)
 	db = client.db
 	col = db.users
 

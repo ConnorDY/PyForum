@@ -15,7 +15,7 @@ from functions import formatPostDB
 
 def get(ts, r, args, s):
 	# Connect to Mongo DB
-	client = MongoClient("mongodb://localhost:27017/")
+	client = MongoClient(MONGODB)
 	db = client.db
 
 	# Get Collections
@@ -80,7 +80,7 @@ def post(s, form, args):
 		return page
 
 	# Connect to Mongo DB
-	client = MongoClient("mongodb://localhost:27017/")
+	client = MongoClient(MONGODB)
 	db = client.db
 
 	# Get Collections

@@ -31,7 +31,7 @@ def get(ts, r, args, s):
 			r_adminSection = file.read()
 
 		# Connect to Mongo DB
-		client = MongoClient("mongodb://localhost:27017/")
+		client = MongoClient(MONGODB)
 		db = client.db
 		colCategories = db.categories
 		colForums = db.forums
@@ -97,7 +97,7 @@ def post(s, form, args):
 		print("Setting new ordering of categories and forums:\n   " + (", ".join(str(i) for i in newOrdering)))
 
 		# Connect to Mongo DB
-		client = MongoClient("mongodb://localhost:27017/")
+		client = MongoClient(MONGODB)
 		db = client.db
 		colCategories = db.categories
 		colForums = db.forums
@@ -134,7 +134,7 @@ def post(s, form, args):
 			return "/admin/manageForums"
 
 		# Connect to Mongo DB
-		client = MongoClient("mongodb://localhost:27017/")
+		client = MongoClient(MONGODB)
 		db = client.db
 		colCategories = db.categories
 
@@ -155,7 +155,7 @@ def post(s, form, args):
 			return "/admin/manageForums"
 
 		# Connect to Mongo DB
-		client = MongoClient("mongodb://localhost:27017/")
+		client = MongoClient(MONGODB)
 		db = client.db
 		colCategories = db.categories
 		colForums = db.forums
@@ -185,7 +185,7 @@ def post(s, form, args):
 			return "/admin/manageForums"
 
 		# Connect to Mongo DB
-		client = MongoClient("mongodb://localhost:27017/")
+		client = MongoClient(MONGODB)
 		db = client.db
 
 		# Determine if it's a forum or category

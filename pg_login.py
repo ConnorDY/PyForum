@@ -30,7 +30,7 @@ def post(s, form, args):
 		return "/login"
 
 	# Connect to Mongo DB
-	client = MongoClient("mongodb://localhost:27017/")
+	client = MongoClient(MONGODB)
 	db = client.db
 	col = db.users
 

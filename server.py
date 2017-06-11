@@ -3,12 +3,14 @@ import http.server
 import socketserver
 
 import os.path
+import os.environ
 import time
 import cgi
 
 import pagefunction
 
 # Vars
+MONGODB = os.environ["MongoDB"]
 PORT = 80
 HTML = 0
 IMG = 1
