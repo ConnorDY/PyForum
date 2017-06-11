@@ -41,7 +41,8 @@ def post(s, form, args):
 
 	user = {"username": form["username"].value,
 			"email": form["email"].value,
-			"password": password}
+			"password": password,
+			"rank": 0}
 	col.insert(user)
 
 	print("New user created: {}".format(form["username"].value))
