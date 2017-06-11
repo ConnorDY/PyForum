@@ -3,8 +3,8 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from functions import getRank, checkLogin
+from global_vars import *
 
-import global_vars
 import genparts
 
 import hashlib

@@ -3,7 +3,7 @@
 from pymongo import MongoClient
 from functions import checkLogin
 
-import global_vars
+from global_vars import *
 import genparts
 
 import hashlib

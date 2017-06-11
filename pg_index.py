@@ -7,7 +7,7 @@ import time
 import datetime
 
 from loadtemplates import loadTemplates
-import global_vars
+from global_vars import *
 import genparts
 
 from functions import getUsernameById
