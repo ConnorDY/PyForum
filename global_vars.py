@@ -1,0 +1,1 @@
+MONGODB = os.environ["MongoDB"]

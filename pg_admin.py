@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from functions import getRank, checkLogin
 
+import global_vars
 import genparts
 
 import hashlib

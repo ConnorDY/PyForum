@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 from loadtemplates import loadTemplates
+import global_vars
 import genparts
 
 from functions import formatPost
