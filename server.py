@@ -196,7 +196,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 		s.send_header("Location", loc)
 		s.end_headers()
 
-class MyTCPServer(SocketServer.TCPServer):
+class MyTCPServer(socketserver.TCPServer):
     def server_bind(self):
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.socket.bind(self.server_address)
@@ -212,4 +212,4 @@ try:
 except KeyboardInterrupt:
 	pass
 #httpd.server_close()
-httpd.shutdown()
+httpd.shutdown
