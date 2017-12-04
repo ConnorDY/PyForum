@@ -1,6 +1,7 @@
 # Modules
 import http.server
 import socketserver
+import socket
 
 import os
 import time
