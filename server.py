@@ -196,9 +196,13 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 		s.send_header("Location", loc)
 		s.end_headers()
 
+class MyTCPServer(SocketServer.TCPServer):
+    def server_bind(self):
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.socket.bind(self.server_address)
 
 # Create TCP HTTP Server
-httpd = socketserver.TCPServer(("", PORT), Handler)
+httpd = MyTCPServer(("", PORT), Handler)
 httpd.allow_reuse_address = True
 
 print("serving at port", PORT)
@@ -207,4 +211,5 @@ try:
 	httpd.serve_forever()
 except KeyboardInterrupt:
 	pass
-httpd.server_close()
+#httpd.server_close()
+httpd.shutdown()
