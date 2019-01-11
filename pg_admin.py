@@ -2,7 +2,7 @@
 
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-from functions import getRank, checkLogin
+from functions import *
 from global_vars import *
 
 import genparts
@@ -31,9 +31,7 @@ def get(ts, r, args, s):
 		with open("html/admin/manageForums.html", "r") as file:
 			r_adminSection = file.read()
 
-		# Connect to Mongo DB
-		client = MongoClient(MONGODB)
-		db = client.db
+		db = getMongoClient()
 		colCategories = db.categories
 		colForums = db.forums
 
@@ -97,9 +95,7 @@ def post(s, form, args):
 
 		print("Setting new ordering of categories and forums:\n   " + (", ".join(str(i) for i in newOrdering)))
 
-		# Connect to Mongo DB
-		client = MongoClient(MONGODB)
-		db = client.db
+		db = getMongoClient()
 		colCategories = db.categories
 		colForums = db.forums
 
@@ -134,9 +130,7 @@ def post(s, form, args):
 		if checkFieldsBlank(form, fields):
 			return "/admin/manageForums"
 
-		# Connect to Mongo DB
-		client = MongoClient(MONGODB)
-		db = client.db
+		db = getMongoClient()
 		colCategories = db.categories
 
 		newCat = {
@@ -155,9 +149,7 @@ def post(s, form, args):
 		if checkFieldsBlank(form, fields):
 			return "/admin/manageForums"
 
-		# Connect to Mongo DB
-		client = MongoClient(MONGODB)
-		db = client.db
+		db = getMongoClient()
 		colCategories = db.categories
 		colForums = db.forums
 
@@ -185,9 +177,7 @@ def post(s, form, args):
 		if checkFieldsBlank(form, fields):
 			return "/admin/manageForums"
 
-		# Connect to Mongo DB
-		client = MongoClient(MONGODB)
-		db = client.db
+		db = getMongoClient()
 
 		# Determine if it's a forum or category
 		if form["id"].value[0:1] == "c":

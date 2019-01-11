@@ -1,7 +1,7 @@
 # path="/login"
 
 from pymongo import MongoClient
-from functions import checkLogin
+from functions import *
 
 from global_vars import *
 import genparts
@@ -30,9 +30,7 @@ def post(s, form, args):
 	if checkFieldsBlank(form, fields):
 		return "/login"
 
-	# Connect to Mongo DB
-	client = MongoClient(MONGODB)
-	db = client.db
+	db = getMongoClient()
 	col = db.users
 
 	# Hash inputted password

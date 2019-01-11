@@ -7,12 +7,10 @@ from loadtemplates import loadTemplates
 from global_vars import *
 import genparts
 
-from functions import formatPost
+from functions import *
 
 def get(ts, r, args, s):
-	# Connect to Mongo DB
-	client = MongoClient(MONGODB)
-	db = client.db
+	db = getMongoClient()
 	colForums = db.forums
 	colThreads = db.threads
 
@@ -54,9 +52,7 @@ def post(s, form, args):
 	from functions import getUsername
 	from functions import getUserId
 
-	# Connect to Mongo DB
-	client = MongoClient(MONGODB)
-	db = client.db
+	db = getMongoClient()
 
 	# Get Collections
 	colForums = db.forums

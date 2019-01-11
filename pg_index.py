@@ -10,12 +10,10 @@ from loadtemplates import loadTemplates
 from global_vars import *
 import genparts
 
-from functions import getUsernameById
+from functions import *
 
 def get(ts, r, args, s):
-	# Connect to Mongo DB
-	client = MongoClient(MONGODB)
-	db = client.db
+	db = getMongoClient()
 	colCategories = db.categories
 	colForums = db.forums
 	colPosts = db.posts

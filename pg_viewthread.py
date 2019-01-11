@@ -10,14 +10,10 @@ from loadtemplates import loadTemplates
 from global_vars import *
 import genparts
 
-from functions import getUsernameById
-from functions import formatPost
-from functions import formatPostDB
+from functions import *
 
 def get(ts, r, args, s):
-	# Connect to Mongo DB
-	client = MongoClient(MONGODB)
-	db = client.db
+	db = getMongoClient()
 
 	# Get Collections
 	colCategories = db.categories
@@ -80,9 +76,7 @@ def post(s, form, args):
 	if checkFieldsBlank(form, fields):
 		return page
 
-	# Connect to Mongo DB
-	client = MongoClient(MONGODB)
-	db = client.db
+	db = getMongoClient()
 
 	# Get Collections
 	colForums = db.forums

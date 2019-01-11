@@ -5,6 +5,12 @@ from http import cookies
 from types import *
 from global_vars import *
 
+def getMongoClient():
+	# Connect to Mongo DB
+	client = MongoClient(MONGODB)
+	db = client.pyforum
+	return db
+
 def checkLogin(headers):
 	if headers.get("Cookie") is None:
 		return False
@@ -16,10 +22,8 @@ def checkLogin(headers):
 	fields = ["username", "password"]
 	if not all(str in C for str in fields):
 		return False
-	
-	# Connect to Mongo DB
-	client = MongoClient(MONGODB)
-	db = client.db
+
+	db = getMongoClient()
 	col = db.users
 
 	# Check Password
@@ -45,9 +49,7 @@ def getRank(headers):
 	if not all(str in C for str in fields):
 		return -1
 
-	# Connect to Mongo DB
-	client = MongoClient(MONGODB)
-	db = client.db
+	db = getMongoClient()
 	col = db.users
 
 	# Grab rank and return it
@@ -70,9 +72,7 @@ def getUsernameById(id_):
 	if type(id_) != type(ObjectId("545531052c7c7c16b8946fdb")):
 		id_ = ObjectId(id_)
 
-	# Connect to Mongo DB
-	client = MongoClient(MONGODB)
-	db = client.db
+	db = getMongoClient()
 	col = db.users
 
 	# Get user
@@ -88,9 +88,7 @@ def getUserId(username):
 	if username is None:
 		return None
 
-	# Connect to Mongo DB
-	client = MongoClient(MONGODB)
-	db = client.db
+	db = getMongoClient()
 	col = db.users
 
 	# Get User ID
